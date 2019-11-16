@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>demo</title>
+    <style>
+        .donut{
+            margin-left:auto; 
+            margin-right:auto; 
+            display:block;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+<svg width="300px" height="300px" viewBox="0 0 42 42" class="donut">
+        <circle id = "red" r="15.91549430918954" cx="21" cy="21" fill="transparent" stroke="#FF0D00" stroke-width="4" stroke-dasharray="25 75" stroke-dashoffset="20"></circle>
+        <circle id = "yellow" r="15.91549430918954" cx="21" cy="21" fill="transparent" stroke="#FFD600" stroke-width="4" stroke-dasharray="25 75" stroke-dashoffset="95"></circle>
+        <circle id = "green" r="15.91549430918954" cx="21" cy="21" fill="transparent" stroke="#0ACF00" stroke-width="4" stroke-dasharray="50 50" stroke-dashoffset="70"></circle>
+</svg>
+    <button id = "addGreen">Зеленый</button>
+    <button id = "addRed">Красный</button>
+    <button id = "addYellow">Желтый</button>
+
+    <script>
+    
+            
+    
+            var buttonGreen = document.getElementById('addGreen');
+            var buttonRed = document.getElementById('addRed');
+            var buttonYellow = document.getElementById('addYellow');
+    
+            buttonGreen.onclick = addGreen;
+            buttonRed.onclick = addRed;
+            buttonYellow.onclick = addYellow;
+    
+            function addGreen(){
+
+                var red = document.getElementById('red');
+                var green = document.getElementById('green');
+                var yellow = document.getElementById('yellow');
+
+                var redValue = parseFloat(red.getAttribute("stroke-dasharray"));
+                var greenValue = parseFloat(green.getAttribute("stroke-dasharray"));
+                var yellowValue = parseFloat(yellow.getAttribute("stroke-dasharray"));
+    
+                var redShift = parseFloat(red.getAttribute("stroke-dashoffset"));
+                var greenShift = parseFloat(green.getAttribute("stroke-dashoffset"));
+                var yellowShift = parseFloat(yellow.getAttribute("stroke-dashoffset"));
+
+                var newGreenValue = greenValue + 1;
+                var newRedValue = redValue - 0.5;
+                var newYellowValue = redValue - 0.5;
+                
+                var newRedShift = redShift - 0.5;
+                var newYellowShift = 100 - newRedValue + newRedShift;
+                var newGreenShift = 100 - newRedValue - newYellowValue + newRedShift;
+    
+                green.setAttribute('stroke-dasharray', newGreenValue + ' ' + (100 - newGreenValue));
+                red.setAttribute('stroke-dasharray',newRedValue + ' ' + (100 - newRedValue));
+                yellow.setAttribute('stroke-dasharray',newYellowValue + ' ' + (100 - newYellowValue));
+    
+                red.setAttribute('stroke-dashoffset',newRedShift);
+                green.setAttribute('stroke-dashoffset',newGreenShift);
+                yellow.setAttribute('stroke-dashoffset',newYellowShift);
+    
+            }
+    </script>
+</body>
+</html>
