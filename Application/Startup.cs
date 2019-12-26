@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MvcUser.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application
 {
@@ -31,6 +33,8 @@ namespace Application
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddDbContext<MvcUserContext>(options =>
+            options.UseSqlite(Configuration.GetConnectionString("UserContext")));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

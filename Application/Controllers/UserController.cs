@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Text.Encodings.Web;
 
 namespace MvcUser.Controllers
-
 {
     public class UserController : Controller
     {
