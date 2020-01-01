@@ -1,5 +1,24 @@
+@model MvcUser.Models.User
+
 @{
     ViewData["Title"] = "Registration";
 }
 
-<div>Registration</div>
+<br>
+<br>
+<h3>@ViewBag.Message</h3>
+<form asp-action="Registration">
+    <label asp-for="Login"></label>
+    <input asp-for="Login">
+    <br>
+    <label asp-for="Email"></label>
+    <input asp-for="Email">
+    <br>
+    <label asp-for="Password"></label>
+    <input asp-for="Password">
+    <br>
+    <input type="submit" value="Registration">
+</form>
+
+<br>
+<br>
