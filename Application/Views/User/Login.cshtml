@@ -1,5 +1,22 @@
+@model MvcUser.Models.User
+
 @{
     ViewData["Title"] = "Login";
 }
 
-<div>Login</div>
+<br>
+<br>
+<h3>@ViewBag.Message</h3>
+<h3>@ViewBag.Message1</h3>
+<form asp-action="Login">
+    <label asp-for="Email"></label>
+    <input asp-for="Email">
+    <br>
+    <label asp-for="Password"></label>
+    <input asp-for="Password">
+    <br>
+    <input type="submit" value="Login">
+</form>
+
+<br>
+<br>

@@ -9,7 +9,7 @@ using MvcUser.Models;
 namespace Application.Migrations
 {
     [DbContext(typeof(MvcUserContext))]
-    [Migration("20191226181732_InitialCreate")]
+    [Migration("20200102180025_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,13 +25,18 @@ namespace Application.Migrations
 
                     b.Property<int>("Admin");
 
-                    b.Property<string>("Email");
+                    b.Property<string>("Email")
+                        .IsRequired();
 
-                    b.Property<string>("Login");
+                    b.Property<string>("Login")
+                        .IsRequired();
 
-                    b.Property<string>("Password");
+                    b.Property<string>("Password")
+                        .IsRequired();
 
                     b.Property<DateTime>("RedisterDate");
+
+                    b.Property<string>("Salt");
 
                     b.HasKey("Id");
 

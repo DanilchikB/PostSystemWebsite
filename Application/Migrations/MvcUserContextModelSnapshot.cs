@@ -23,13 +23,18 @@ namespace Application.Migrations
 
                     b.Property<int>("Admin");
 
-                    b.Property<string>("Email");
+                    b.Property<string>("Email")
+                        .IsRequired();
 
-                    b.Property<string>("Login");
+                    b.Property<string>("Login")
+                        .IsRequired();
 
-                    b.Property<string>("Password");
+                    b.Property<string>("Password")
+                        .IsRequired();
 
                     b.Property<DateTime>("RedisterDate");
+
+                    b.Property<string>("Salt");
 
                     b.HasKey("Id");
 
