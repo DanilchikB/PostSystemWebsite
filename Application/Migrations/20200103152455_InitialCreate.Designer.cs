@@ -9,7 +9,7 @@ using MvcUser.Models;
 namespace Application.Migrations
 {
     [DbContext(typeof(MvcUserContext))]
-    [Migration("20200102180025_InitialCreate")]
+    [Migration("20200103152455_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,8 +35,6 @@ namespace Application.Migrations
                         .IsRequired();
 
                     b.Property<DateTime>("RedisterDate");
-
-                    b.Property<string>("Salt");
 
                     b.HasKey("Id");
 

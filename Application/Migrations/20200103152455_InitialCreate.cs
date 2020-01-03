@@ -16,7 +16,6 @@ namespace Application.Migrations
                     Login = table.Column<string>(nullable: false),
                     Password = table.Column<string>(nullable: false),
                     Email = table.Column<string>(nullable: false),
-                    Salt = table.Column<string>(nullable: true),
                     Admin = table.Column<int>(nullable: false),
                     RedisterDate = table.Column<DateTime>(nullable: false)
                 },

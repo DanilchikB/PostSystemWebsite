@@ -34,8 +34,6 @@ namespace Application.Migrations
 
                     b.Property<DateTime>("RedisterDate");
 
-                    b.Property<string>("Salt");
-
                     b.HasKey("Id");
 
                     b.ToTable("User");

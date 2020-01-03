@@ -16,7 +16,6 @@ namespace MvcUser.Models
         [Required]
         public string Email { get; set; }
 
-        public string Salt {get; set;}
         public int Admin { get; set; }
         [DataType(DataType.Date)]
         public DateTime RedisterDate { get; set; }
