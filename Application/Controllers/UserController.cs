@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using MvcUser.Models;
+using MvcUser.Data;
 using Microsoft.EntityFrameworkCore;
 using Helpers.User.PasswordHasher;
 using System.Collections.Generic;

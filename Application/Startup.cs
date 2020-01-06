@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MvcUser.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using MvcUser.Data;
 
 namespace Application
 {

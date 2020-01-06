@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using MvcUser.Models;
+using MvcPost.Models;
 
-namespace MvcUser.Models
+namespace MvcUser.Data
 {
     public class MvcUserContext : DbContext
     {
@@ -10,5 +12,6 @@ namespace MvcUser.Models
         }
 
         public DbSet<User> User { get; set; }
+        public DbSet<Post> Posts { get; set; }
     }
 }

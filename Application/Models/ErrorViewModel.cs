@@ -1,4 +1,5 @@
 using System;
+using MvcPost.Models;
 
 namespace Application.Models
 {
