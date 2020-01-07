@@ -29,13 +29,13 @@ namespace Application.Migrations
 
                     b.Property<string>("Title");
 
-                    b.Property<int>("UserId");
+                    b.Property<int?>("UserId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Post");
                 });
 
             modelBuilder.Entity("MvcUser.Models.User", b =>
@@ -65,8 +65,7 @@ namespace Application.Migrations
                 {
                     b.HasOne("MvcUser.Models.User", "User")
                         .WithMany("Posts")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

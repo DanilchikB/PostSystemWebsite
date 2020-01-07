@@ -12,6 +12,6 @@ namespace MvcUser.Data
         }
 
         public DbSet<User> User { get; set; }
-        public DbSet<Post> Posts { get; set; }
+        public DbSet<Post> Post { get; set; }
     }
 }

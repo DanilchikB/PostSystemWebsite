@@ -97,6 +97,8 @@ namespace MvcUser.Controllers
             return View(user);
         }
         
+
+        //helper method for authorization using cookies
         private async Task Authenticate(string userLogin)
         {
             

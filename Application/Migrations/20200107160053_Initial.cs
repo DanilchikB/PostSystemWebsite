@@ -25,7 +25,7 @@ namespace Application.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Posts",
+                name: "Post",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -34,29 +34,29 @@ namespace Application.Migrations
                     Description = table.Column<string>(nullable: true),
                     Text = table.Column<string>(nullable: true),
                     Date = table.Column<DateTime>(nullable: false),
-                    UserId = table.Column<int>(nullable: false)
+                    UserId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Posts", x => x.Id);
+                    table.PrimaryKey("PK_Post", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Posts_User_UserId",
+                        name: "FK_Post_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Posts_UserId",
-                table: "Posts",
+                name: "IX_Post_UserId",
+                table: "Post",
                 column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Posts");
+                name: "Post");
 
             migrationBuilder.DropTable(
                 name: "User");

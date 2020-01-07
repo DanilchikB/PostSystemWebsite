@@ -13,7 +13,7 @@ namespace MvcPost.Models
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
 
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
         public User User { get; set; }
 
     }

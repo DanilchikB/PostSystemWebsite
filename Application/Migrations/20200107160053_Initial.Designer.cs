@@ -9,7 +9,7 @@ using MvcUser.Data;
 namespace Application.Migrations
 {
     [DbContext(typeof(MvcUserContext))]
-    [Migration("20200106172235_Initial")]
+    [Migration("20200107160053_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,13 +31,13 @@ namespace Application.Migrations
 
                     b.Property<string>("Title");
 
-                    b.Property<int>("UserId");
+                    b.Property<int?>("UserId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Post");
                 });
 
             modelBuilder.Entity("MvcUser.Models.User", b =>
@@ -67,8 +67,7 @@ namespace Application.Migrations
                 {
                     b.HasOne("MvcUser.Models.User", "User")
                         .WithMany("Posts")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }
