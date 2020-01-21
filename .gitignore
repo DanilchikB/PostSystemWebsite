@@ -9,9 +9,10 @@
 *.log
 .vscode
 
+Migrations
 bin/
 obj/
-
+test.db
 
 
 
