@@ -48,7 +48,8 @@ namespace MvcUser.Controllers
                 bool check = ph.Check(login.Password, user.Password);
                 
                 if(check){
-                    await Authenticate(user.Email);
+                    string userId = login.Id.ToString();
+                    await Authenticate(userId);
                     ViewBag.Message = "Success";
                 }
             }
@@ -99,12 +100,12 @@ namespace MvcUser.Controllers
         
 
         //helper method for authorization using cookies
-        private async Task Authenticate(string userLogin)
+        private async Task Authenticate(string userId)
         {
             
             var claims = new List<Claim>
             {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, userLogin)
+                new Claim(ClaimsIdentity.DefaultNameClaimType, userId)
             };
             
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
