@@ -8,12 +8,14 @@
 <form asp-action="Create">
     <label asp-for="Title"></label>
     <input asp-for="Title">
+    <span asp-validation-for="Title"></span>
     <br>
     <label asp-for="Description"></label>
     <input asp-for="Description">
     <br>
     <label asp-for="Text"></label>
     <input asp-for="Text">
+    <span asp-validation-for="Text"></span>
     <br>
     <input type="submit" value="Add">
 </form>

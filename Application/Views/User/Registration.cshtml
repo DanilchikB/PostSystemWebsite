@@ -10,12 +10,15 @@
 <form asp-action="Registration">
     <label asp-for="Login"></label>
     <input asp-for="Login">
+    <span asp-validation-for="Login"></span>
     <br>
     <label asp-for="Email"></label>
     <input asp-for="Email">
+    <span asp-validation-for="Email"></span>
     <br>
     <label asp-for="Password"></label>
     <input asp-for="Password">
+    <span asp-validation-for="Password"></span>
     <br>
     <input type="submit" value="Registration">
 </form>
