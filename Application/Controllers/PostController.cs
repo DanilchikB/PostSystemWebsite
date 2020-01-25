@@ -22,8 +22,7 @@ namespace MvcPost.Controllers
         // GET: /Post/ 
         public IActionResult Index()
         {
-            var user = User.Identity.Name;
-            return Content(user);
+            return View();
         }
 
         //GET: /Post/List/
