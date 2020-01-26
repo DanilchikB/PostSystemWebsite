@@ -7,17 +7,46 @@ for details on configuring this project to bundle and minify static web assets. 
 }
 html{
   height: 100%;
+  width: 100%;
 }
 body {
-  position:relative; 
+  position:relative;
   min-height:100%;
 }
 .blue{
   background: rgb(80, 172, 247);
 }
-
+.content{
+  min-height: 800px;
+}
 footer{
   position: absolute;
   bottom: 0;
   width: 100%;
 }
+
+@media (max-width: 599px) {
+  .center-form{
+    margin: 0 auto;
+    width:80%;
+  }
+}
+@media (min-width: 600px) and (max-width: 899px) {
+  .center-form{
+    margin: 0 auto;
+    width:50%;
+  }
+}
+@media (min-width: 900px){
+  .center-form{
+    margin: 0 auto;
+    width:30%;
+  }
+}
+.center{
+  text-align: center;
+}
+
+
+
+

@@ -7,21 +7,35 @@
 <br>
 <br>
 <h3>@ViewBag.Message</h3>
-<form asp-action="Registration">
-    <label asp-for="Login"></label>
-    <input asp-for="Login">
-    <span asp-validation-for="Login"></span>
-    <br>
-    <label asp-for="Email"></label>
-    <input asp-for="Email">
-    <span asp-validation-for="Email"></span>
-    <br>
-    <label asp-for="Password"></label>
-    <input asp-for="Password">
-    <span asp-validation-for="Password"></span>
-    <br>
-    <input type="submit" value="Registration">
-</form>
+<div class = "center-form">
+    <div  class = "center">
+        <h3>Registration</h3>
+    </div>
+    <form asp-action="Registration">
+        <div class="form-group">
+            <label asp-for="Login"></label>
+            <input asp-for="Login" class="form-control">
+            <div class = "invalid-feedback d-block">
+                <span asp-validation-for="Login"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" class="form-control">
+            <div class = "invalid-feedback d-block">
+                <span asp-validation-for="Email"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Password"></label>
+            <input asp-for="Password" class="form-control">
+            <div class = "invalid-feedback d-block">
+                <span asp-validation-for="Password"></span>
+            </div>
+        </div>
+        <input type="submit" value="Registration" class="btn btn-primary">
+    </form>
+</div>
 
 <br>
 <br>

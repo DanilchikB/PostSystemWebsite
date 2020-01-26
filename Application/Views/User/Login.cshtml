@@ -8,17 +8,25 @@
 <br>
 <h3>@ViewBag.Message</h3>
 <h3>@ViewBag.Message1</h3>
-<form asp-action="Login">
-    <label asp-for="Email"></label>
-    <input asp-for="Email">
-    <span asp-validation-for="Email"></span>
-    <br>
-    <label asp-for="Password"></label>
-    <input asp-for="Password">
-    <span asp-validation-for="Email"></span>
-    <br>
-    <input type="submit" value="Login">
-</form>
-
-<br>
-<br>
+<div class = "center-form">
+    <div  class = "center">
+        <h3>Login</h3>
+    </div>
+    <form asp-action="Login">
+        <div class="form-group">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" class="form-control">
+            <div class = "invalid-feedback d-block">
+                <span asp-validation-for="Email"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Password"></label>
+            <input asp-for="Password" class="form-control">
+            <div class = "invalid-feedback d-block">
+                <span asp-validation-for="Password"></span>
+            </div>
+        </div>
+        <input type="submit" value="Login" class="btn btn-primary">
+    </form>
+</div>
