@@ -16,7 +16,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a asp-controller="Home" asp-action="Index" class="nav-link">Home</a>
             </li>
@@ -27,6 +27,15 @@
                 <a asp-controller="User" asp-action="Index"  class="nav-link">Users</a>
             </li>
             </ul>
+            <div class = "navbar-nav mr-3">
+                @if(User.Identity.IsAuthenticated){
+                    <a asp-controller="User" asp-action="logout" class="nav-link">Log out</a>
+                }else{
+                    <a asp-controller="User" asp-action="login" class="nav-link">Log in</a>
+                    <a asp-controller="User" asp-action="Registration" class="nav-link">Registration</a>
+                }
+
+            </div>
         </div>
         </nav>
     </header>
