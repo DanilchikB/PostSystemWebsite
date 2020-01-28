@@ -28,13 +28,18 @@
         </div>
         <div class="form-group">
             <label asp-for="Password"></label>
-            <input asp-for="Password" class="form-control">
+            <input asp-for="Password" type="password" class="form-control">
             <div class = "invalid-feedback d-block">
                 <span asp-validation-for="Password"></span>
             </div>
         </div>
         <input type="submit" value="Registration" class="btn btn-primary">
     </form>
+    <br>
+    <div class="alert alert-info text-center" role="alert">
+            <span class="text-xs-center">You are registred?</span><br>
+            <a asp-controller ="user" asp-action="login" class="alert-link text-primary">Log in</a>
+    </div>
 </div>
 
 <br>

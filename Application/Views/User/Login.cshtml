@@ -1,7 +1,7 @@
 @model MvcUser.Models.User
 
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "Log in";
 }
 
 <br>
@@ -10,9 +10,9 @@
 <h3>@ViewBag.Message1</h3>
 <div class = "center-form">
     <div  class = "center">
-        <h3>Login</h3>
+        <h3>Log in</h3>
     </div>
-    <form asp-action="Login">
+    <form asp-action="Log in">
         <div class="form-group">
             <label asp-for="Email"></label>
             <input asp-for="Email" class="form-control">
@@ -22,11 +22,16 @@
         </div>
         <div class="form-group">
             <label asp-for="Password"></label>
-            <input asp-for="Password" class="form-control">
+            <input asp-for="Password" type="password" class="form-control">
             <div class = "invalid-feedback d-block">
                 <span asp-validation-for="Password"></span>
             </div>
         </div>
-        <input type="submit" value="Login" class="btn btn-primary">
+        <input type="submit" value="Log in" class="btn btn-primary">
     </form>
+    <br>
+    <div class="alert alert-info text-center" role="alert">
+            <span class="">You are not registred?</span><br>
+            <a asp-controller ="user" asp-action="Registration" class="alert-link text-primary">Registration</a>
+    </div>
 </div>

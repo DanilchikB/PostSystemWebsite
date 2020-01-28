@@ -26,7 +26,11 @@ namespace MvcUser.Controllers
         [Authorize]
         public IActionResult Index()
         {
-            return Content(User.Identity.Name);
+            if(User.Identity.IsAuthenticated){
+                return View();
+            }else{
+                return RedirectToAction("Login","User");
+            }
         }
 
         
@@ -34,7 +38,12 @@ namespace MvcUser.Controllers
 
         public IActionResult Login ()
         {
-            return View();
+            if(User.Identity.IsAuthenticated){
+                return RedirectToAction("Index","User");
+            }else{
+                return View();
+            }
+
         }
         // POST: /User/Login/
         [HttpPost]
@@ -51,6 +60,7 @@ namespace MvcUser.Controllers
                     string userId = login.Id.ToString();
                     await Authenticate(userId);
                     ViewBag.Message = "Success";
+                    return RedirectToAction("Index","User");
                 }
             }
             
@@ -67,7 +77,11 @@ namespace MvcUser.Controllers
 
         public IActionResult Registration()
         {
-            return View();
+            if(User.Identity.IsAuthenticated){
+                return RedirectToAction("Index","User");
+            }else{
+                return View();
+            }
         }
         // POST: /User/Registration/
         [HttpPost]
@@ -92,7 +106,7 @@ namespace MvcUser.Controllers
                 user.Password = ph.Hash(user.Password);
                 _context.Add(user);
                 await _context.SaveChangesAsync();
-                //return RedirectToAction(nameof(Index));
+                return RedirectToAction("Login", "User");
                 }
             }
             return View(user);

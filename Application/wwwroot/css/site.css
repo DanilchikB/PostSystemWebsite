@@ -46,7 +46,9 @@ footer{
 .center{
   text-align: center;
 }
-
+.style-none:hover{
+  text-decoration: none; 
+}
 
 
 

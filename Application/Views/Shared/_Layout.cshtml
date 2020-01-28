@@ -17,7 +17,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a asp-controller="Home" asp-action="Index" class="nav-link">Home</a>
             </li>
             <li class="nav-item">
@@ -54,20 +54,41 @@
             </div>
             <hr class="clearfix w-100 d-md-none pb-3">
             <div class="col-md-3 mb-md-0 mb-3">
-                <h5 class="text-uppercase">Links</h5>
+                <h5 class="text-uppercase">
+                    <a asp-controller="user" asp-action="Index" class="style-none text-dark">User</a>
+                </h5>
                 <ul class="list-unstyled">
-                <li>
-                    <a>Link 1</a>
-                </li>
+                
+                    @if(User.Identity.IsAuthenticated){
+                        <li>
+                        <a asp-controller="user" asp-action="Index" class = "text-dark">My page</a>
+                        </li>
+                    }else{
+                        <li>
+                        <a asp-controller="user" asp-action="Login" class = "text-dark">Login</a>
+                        </li>
+                    }
                 </ul>
 
             </div>
             <div class="col-md-3 mb-md-0 mb-3">
-                <h5 class="text-uppercase">Links</h5>
+                <h5 class="text-uppercase">
+                    <a asp-controller="Post" asp-action="Index" class = "style-none text-dark">Posts</a> 
+                </h5>
                 <ul class="list-unstyled">
-                <li>
-                    <a >Link 1</a>
-                </li>
+                    <li>
+                    <a asp-controller="post" asp-action="List" class="text-dark">List</a>
+                    </li>
+                    @if(User.Identity.IsAuthenticated){
+                    <li>
+                    <a asp-controller="post" asp-action="MyList" class="text-dark">My list</a>
+                    </li>
+                    <li>
+                    <a asp-controller="post" asp-action="Create" class="text-dark">Add post</a>
+                    </li>
+                    }
+                    
+                
                 </ul>
             </div>
         </div>  
