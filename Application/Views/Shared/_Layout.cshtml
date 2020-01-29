@@ -10,11 +10,8 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light blue">
+        <nav class="navbar navbar-expand-lg navbar-light bg-primary text-white">
         <a class="navbar-brand">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
             <li class="nav-item">
@@ -45,27 +42,27 @@
         </main>
     </div>
 
-    <footer class="navbar-fixed-bottom page-footer font-small blue pt-4">
+    <footer class="navbar-fixed-bottom page-footer font-small bg-primary pt-4">
         <div class="container-fluid text-center text-md-left">
             <div class="row">
                 <div class="col-md-6 mt-md-0 mt-3">
-                <h5 class="text-uppercase">Footer Content</h5>
+                <h5 class="text-uppercase text-white">Footer Content</h5>
                 <p></p>
             </div>
             <hr class="clearfix w-100 d-md-none pb-3">
             <div class="col-md-3 mb-md-0 mb-3">
                 <h5 class="text-uppercase">
-                    <a asp-controller="user" asp-action="Index" class="style-none text-dark">User</a>
+                    <a asp-controller="user" asp-action="Index" class="style-none white">User</a>
                 </h5>
                 <ul class="list-unstyled">
                 
                     @if(User.Identity.IsAuthenticated){
                         <li>
-                        <a asp-controller="user" asp-action="Index" class = "text-dark">My page</a>
+                        <a asp-controller="user" asp-action="Index" class = "style-none white">My page</a>
                         </li>
                     }else{
                         <li>
-                        <a asp-controller="user" asp-action="Login" class = "text-dark">Login</a>
+                        <a asp-controller="user" asp-action="Login" class = "style-none white">Login</a>
                         </li>
                     }
                 </ul>
@@ -73,18 +70,18 @@
             </div>
             <div class="col-md-3 mb-md-0 mb-3">
                 <h5 class="text-uppercase">
-                    <a asp-controller="Post" asp-action="Index" class = "style-none text-dark">Posts</a> 
+                    <a asp-controller="Post" asp-action="Index" class = "style-none white">Posts</a> 
                 </h5>
                 <ul class="list-unstyled">
                     <li>
-                    <a asp-controller="post" asp-action="List" class="text-dark">List</a>
+                    <a asp-controller="post" asp-action="List" class="style-none white">List</a>
                     </li>
                     @if(User.Identity.IsAuthenticated){
                     <li>
-                    <a asp-controller="post" asp-action="MyList" class="text-dark">My list</a>
+                    <a asp-controller="post" asp-action="MyList" class="style-none white">My list</a>
                     </li>
                     <li>
-                    <a asp-controller="post" asp-action="Create" class="text-dark">Add post</a>
+                    <a asp-controller="post" asp-action="Create" class="style-none white">Add post</a>
                     </li>
                     }
                     

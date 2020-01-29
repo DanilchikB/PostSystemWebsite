@@ -1,5 +1,28 @@
 @{
     ViewData["Title"] = "Post";
 }
+@if(!User.Identity.IsAuthenticated){
+    <div class = "alert alert-warning text-center menu">
+        Please <a asp-controller="User" asp-action="Login" class = "style-none text-primary">log in</a> to watch and use posts
+    </div>
+}else{
 
-<div>Post</div>
+
+  <div class="menu text-center">
+    <div class="nav flex-column nav-pills px-5">
+        <a asp-controller="Post" asp-action="List" class="btn btn-primary">
+            List
+        </a>
+        <br>
+        <a asp-controller="Post" asp-action="MyList" class="btn btn-primary">
+            My list
+        </a>
+        <br>
+        <a asp-controller="Post" asp-action="Create" class="btn btn-success">
+            Create posts
+        </a>
+    </div>
+  </div>
+
+
+}
