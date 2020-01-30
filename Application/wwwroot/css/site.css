@@ -27,13 +27,19 @@ body {
   margin-top: 20%;
   margin-bottom: 20%;
 }
+.posts{
+  margin: 0 auto;
+  margin-top: 2%;
+  margin-bottom: 5%;
+  width:50%;
+}
 
 @media (max-width: 599px) {
   .center-form{
     margin: 0 auto;
     width:80%;
   }
-  .menu{
+  .menu, .posts{
     width:80%;
   }
 }

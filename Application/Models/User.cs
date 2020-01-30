@@ -9,15 +9,15 @@ namespace MvcUser.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Не введен логин")]
+        [Required(ErrorMessage = "login not entered")]
         public string Login { get; set; }
 
-        [Required(ErrorMessage = "Не введен пароль")]
-        [StringLength(30, MinimumLength=6, ErrorMessage = "Пароль должен быть больше 6 и меньше 30 символов")]
+        [Required(ErrorMessage = "Password not entered")]
+        [StringLength(30, MinimumLength=6, ErrorMessage = "Password must be greater than 6 and less than 30 characters")]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "Не введен Email")]
-        [EmailAddress(ErrorMessage = "Не правильно введен Email")]
+        [Required(ErrorMessage = "Email not entered")]
+        [EmailAddress(ErrorMessage = "Email is not entered correctly")]
         public string Email { get; set; }
 
         public int Admin { get; set; }

@@ -28,9 +28,9 @@ namespace MvcPost.Controllers
         //GET: /Post/List/
         public async Task<IActionResult> List()
         {
-            return View(await _context.Post.ToListAsync());
+            var posts = _context.Post.Include(p=>p.User);
+            return View(await posts.ToListAsync());
         }
-
         //GET: /Post/Details/1
         public async Task<IActionResult> Details(int? id)
         {
