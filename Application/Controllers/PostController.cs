@@ -7,6 +7,8 @@ using System.Security.Claims;
 using MvcPost.Models;
 using MvcUser.Data;
 using MvcUser.Models;
+using System.Linq;
+using paginationPage.Models;
 
 namespace MvcPost.Controllers
 {
@@ -26,11 +28,36 @@ namespace MvcPost.Controllers
         }
 
         //GET: /Post/List/
-        public async Task<IActionResult> List()
+        public async Task<IActionResult> List(int page=1)
         {
+            int itemsSize = 5;
+            int countButton;
             var posts = _context.Post.Include(p=>p.User);
-            return View(await posts.ToListAsync());
+            posts.OrderByDescending(x => x.Id);
+            int postCount = posts.Count();
+            float count = (float)postCount/itemsSize;
+            if(count>0){
+                countButton = postCount/itemsSize + 1;
+            }else{
+                countButton = postCount/itemsSize;
+            }
+
+            var items = await posts.Skip((page - 1)*itemsSize).Take(itemsSize).ToListAsync();
+
+            ListPages viewModel = new ListPages{
+                Posts = items,
+                PageCount = countButton,
+                ActualPage = page
+            };
+
+            return View(viewModel);
         }
+        //GET: /Post/MyList/
+        public IActionResult MyList()
+        {
+            return View();
+        }
+
         //GET: /Post/Details/1
         public async Task<IActionResult> Details(int? id)
         {
@@ -139,6 +166,6 @@ namespace MvcPost.Controllers
             }
         }
         
-        //GET: /Post/MyList/
+        
     }
 }
