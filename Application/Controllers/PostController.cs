@@ -32,8 +32,8 @@ namespace MvcPost.Controllers
         {
             int itemsSize = 5;
             int countButton;
-            var posts = _context.Post.Include(p=>p.User);
-            posts.OrderByDescending(x => x.Id);
+            IQueryable<Post> posts = _context.Post.Include(p=>p.User);
+            posts = posts.OrderByDescending(x => x.Id);
             int postCount = posts.Count();
             float count = (float)postCount/itemsSize;
             if(count>0){
@@ -53,9 +53,29 @@ namespace MvcPost.Controllers
             return View(viewModel);
         }
         //GET: /Post/MyList/
-        public IActionResult MyList()
+        public async Task<IActionResult> MyList(int page=1)
         {
-            return View();
+            int itemsSize = 5;
+            int countButton;
+
+            IQueryable<Post> posts = _context.Post.Include(p=>p.User);
+            posts = posts.Where(p => p.UserId == Int32.Parse(User.Identity.Name));
+            posts = posts.OrderByDescending(x => x.Id);
+            int postCount = posts.Count();
+
+            float count = (float)postCount/itemsSize;
+            if(count>0){
+                countButton = postCount/itemsSize + 1;
+            }else{
+                countButton = postCount/itemsSize;
+            }
+
+            ListPages viewModel = new ListPages{
+                Posts = await posts.Skip((page - 1)*itemsSize).Take(itemsSize).ToListAsync(),
+                PageCount = countButton,
+                ActualPage = page
+            };
+            return View(viewModel);
         }
 
         //GET: /Post/Details/1
@@ -82,15 +102,18 @@ namespace MvcPost.Controllers
         //POST: /Post/Create/
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(User user, Post post)
+        public async Task<IActionResult> Create(Post post)
         {
-            DateTime thisDay = DateTime.Now;
-            post.Date = thisDay;
-            Console.WriteLine(thisDay.ToString());
-            post.UserId = Int32.Parse(User.Identity.Name);
+            if (ModelState.IsValid){
+                DateTime thisDay = DateTime.Now;
+                post.Date = thisDay;
+                Console.WriteLine(thisDay.ToString());
+                post.UserId = Int32.Parse(User.Identity.Name);
 
-            _context.Add(post);
-            await _context.SaveChangesAsync();
+                _context.Add(post);
+                await _context.SaveChangesAsync();
+                return View(post);
+            }
             return View(post);
         }
 

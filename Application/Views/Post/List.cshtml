@@ -2,10 +2,18 @@
 @{
     ViewData["Title"] = "List";  
 }
-<div class="btn-group " role="group" aria-label="Basic example">
-  <button type="button" class="btn btn-primary">List</button>
-  <button type="button" class="btn btn-warning">My list</button>
-  <button type="button" class="btn btn-success">Create</button>
+<div class = "center">
+<div class="btn-group mt-4" role="group" aria-label="Basic example">
+    <a asp-controller="Post" asp-action="List" class="btn btn-primary text-white">
+        List
+    </a>
+    <a asp-controller="Post" asp-action="MyList" class="btn btn-primary text-white">
+        My list
+    </a>
+    <a asp-controller = "Post" asp-action="Create" class="btn btn-success text-white">
+        Create
+    </a>
+</div>
 </div>
 <div class = "posts">
 @foreach (var item in Model.Posts) { 
