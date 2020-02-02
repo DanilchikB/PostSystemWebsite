@@ -3,11 +3,24 @@
 @{
     ViewData["Title"] = "Delete";
 }
-<div>@Html.DisplayFor(model => model.Title)</div>
-<div>@Html.DisplayFor(model => model.Description)</div>
-<div>@Html.DisplayFor(model => model.Text)</div>
-<form asp-action="Delete">
-<input type="hidden" asp-for="Id" />
-<input type="hidden" asp-for="UserId"/>
-<input type="submit" value="Delete" class="btn btn-danger" />
-</form>
+<h3 class = "text-center mt-5 mb-2">Delete post</h3>
+<div class = "detailed-post">
+<div class="alert alert-warning text-center" role="alert">
+  By clicking on the Delete button, you permanently delete the entry
+</div>
+    <div class="card">
+        <div class="card-header text-center bg-danger text-white">
+            @Html.DisplayFor(model => model.Title)
+        </div>
+        <div class="card-body">
+            <p class="card-text">Description: @Html.DisplayFor(model => model.Description)</p>
+            <p class="card-text">@Html.DisplayFor(model => model.Text)</p>
+        </div>
+        <form asp-action="Delete" class="ml-2 mb-2">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="UserId"/>
+            <input type="submit" value="Delete" class="btn btn-danger" />
+        </form>
+    </div>
+    
+</div>

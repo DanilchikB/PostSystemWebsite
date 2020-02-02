@@ -32,7 +32,10 @@ body {
   margin-top: 2%;
   width:50%;
 }
-
+.detailed-post{
+    width: 75%;
+    margin: 0 auto;
+}
 @media (max-width: 599px) {
   .center-form{
     margin: 0 auto;
@@ -40,6 +43,9 @@ body {
   }
   .menu, .posts{
     width:80%;
+  }
+  .detailed-post{
+    width: 90%;
   }
 }
 @media (min-width: 600px) and (max-width: 899px) {

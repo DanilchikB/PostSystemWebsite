@@ -1,0 +1,36 @@
+@model paginationPage.Models.ListPages
+@{
+    int beforePage;
+    if(Model.ActualPage>1){
+      beforePage = Model.ActualPage-1;
+    }else{
+      beforePage = Model.ActualPage;
+    }
+    int afterPage = Model.ActualPage+1;
+}
+  <nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center mb-5">
+    @if(Model.ActualPage > 1){
+        <li class="page-item">
+            <a asp-controller="Post" asp-action="@ViewBag.page" asp-route-page="@beforePage" class="page-link" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+    }
+        @for(int i = 1; i <= Model.PageCount;i++){
+          @if(Model.ActualPage == i){
+            <li class="page-item active"><a class="page-link" asp-controller="Post" asp-action="@ViewBag.page" asp-route-page="@i">@i</a></li>
+          }else{
+            <li class="page-item"><a class="page-link" asp-controller="Post" asp-action="@ViewBag.page" asp-route-page="@i">@i</a></li>
+          }
+
+        }
+    @if(Model.ActualPage < Model.PageCount){
+      <li class="page-item">
+        <a asp-controller="Post" asp-action="@ViewBag.page" asp-route-page="@afterPage" class="page-link" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    }
+    </ul>
+  </nav>

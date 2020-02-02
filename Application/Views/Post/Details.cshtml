@@ -3,8 +3,13 @@
 @{
     ViewData["Title"] = "Details";
 }
-<p>Details</p>
-<div>@Html.DisplayFor(model => model.Id)</div>
-<div>@Html.DisplayFor(model => model.Title)</div>
-<div>@Html.DisplayFor(model => model.Description)</div>
-<div>@Html.DisplayFor(model => model.Text)</div>
+<h3 class = "text-center mt-5 mb-5">Details</h3>
+<div class="card detailed-post">
+  <div class="card-header text-center">
+    @Html.DisplayFor(model => model.Title)
+  </div>
+  <div class="card-body">
+    <p class="card-text">Description: @Html.DisplayFor(model => model.Description)</p>
+    <p class="card-text">@Html.DisplayFor(model => model.Text)</p>
+  </div>
+</div>

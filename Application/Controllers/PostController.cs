@@ -35,7 +35,7 @@ namespace MvcPost.Controllers
             IQueryable<Post> posts = _context.Post.Include(p=>p.User);
             posts = posts.OrderByDescending(x => x.Id);
             int postCount = posts.Count();
-            float count = (float)postCount/itemsSize;
+            float count = (float)postCount/itemsSize-postCount/itemsSize;
             if(count>0){
                 countButton = postCount/itemsSize + 1;
             }else{
@@ -63,7 +63,7 @@ namespace MvcPost.Controllers
             posts = posts.OrderByDescending(x => x.Id);
             int postCount = posts.Count();
 
-            float count = (float)postCount/itemsSize;
+            float count = (float)postCount/itemsSize - postCount/itemsSize;
             if(count>0){
                 countButton = postCount/itemsSize + 1;
             }else{
