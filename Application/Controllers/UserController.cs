@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using MvcUser.Models;
-using MvcUser.Data;
+using MvcDataContext.Data;
 using Microsoft.EntityFrameworkCore;
 using Helpers.User.PasswordHasher;
 using System.Collections.Generic;
@@ -16,9 +16,9 @@ namespace MvcUser.Controllers
 {
     public class UserController : Controller
     {
-        private readonly MvcUserContext _context;
+        private readonly DataContext _context;
 
-        public UserController(MvcUserContext context)
+        public UserController(DataContext context)
         {
             _context = context;
         }

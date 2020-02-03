@@ -36,6 +36,9 @@ body {
     width: 75%;
     margin: 0 auto;
 }
+.feedback-text-header{
+  margin-left: 37%;
+}
 @media (max-width: 599px) {
   .center-form{
     margin: 0 auto;

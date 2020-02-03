@@ -1,17 +1,18 @@
 using Microsoft.EntityFrameworkCore;
 using MvcUser.Models;
 using MvcPost.Models;
+using MvcFeedback.Models;
 
-namespace MvcUser.Data
+namespace MvcDataContext.Data
 {
-    public class MvcUserContext : DbContext
+    public class DataContext : DbContext
     {
-        public MvcUserContext (DbContextOptions<MvcUserContext> options)
+        public DataContext (DbContextOptions<DataContext> options)
             : base(options)
         {
         }
-
         public DbSet<User> User { get; set; }
         public DbSet<Post> Post { get; set; }
+        public DbSet<Feedback> Feedback { get; set;}
     }
 }

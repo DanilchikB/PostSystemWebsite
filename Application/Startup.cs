@@ -12,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MvcUser.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using MvcUser.Data;
+using MvcDataContext.Data;
 
 namespace Application
 {
@@ -35,8 +35,8 @@ namespace Application
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<MvcUserContext>(options =>
-            options.UseSqlite(Configuration.GetConnectionString("UserContext")));
+            services.AddDbContext<DataContext>(options =>
+            options.UseSqlite(Configuration.GetConnectionString("DataContext")));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 

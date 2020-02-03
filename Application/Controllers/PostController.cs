@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using MvcPost.Models;
-using MvcUser.Data;
+using MvcDataContext.Data;
 using MvcUser.Models;
 using System.Linq;
 using paginationPage.Models;
@@ -15,9 +15,9 @@ namespace MvcPost.Controllers
     public class PostController : Controller
     {
         //dependency injection for database context
-        private readonly MvcUserContext _context;
+        private readonly DataContext _context;
 
-        public PostController(MvcUserContext context)
+        public PostController(DataContext context)
         {
             _context = context;
         }

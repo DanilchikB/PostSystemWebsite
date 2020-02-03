@@ -1,0 +1,54 @@
+    <!--Modal window feedback-->
+<div class="modal fade" id="ModalFeedback" tabindex="-1" role="dialog"  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="feedback-text-header">Feedback</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form onsubmit="GetFeedbackData();return false;">
+        <div class="form-group">
+            <label for="FeedbackEmail">Email</label>
+            <input type="" class="form-control" id="FeedbackEmail" placeholder="Enter email">
+        </div>
+        <div class="form-group">
+            <label for="FeedbackText">Text</label>
+            <textarea class="form-control" id="FeedbackText" rows="3"></textarea>
+        </div>
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="Check1">
+            <label class="form-check-label" for="Check1">I agree to the processing of personal data</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Send</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+   async function GetFeedbackData() {
+    const FeedbackEmail = document.getElementById("FeedbackEmail").value;
+    const FeedbackText = document.getElementById("FeedbackText").value;
+    const url = 'home/feedback';
+    let data = { Email: FeedbackEmail, Text: FeedbackText};
+    const response = await fetch(url, {
+        method: 'POST', 
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+        
+  });
+  let commits = await response.json();
+  if (!response.ok) {
+    console.log("Неудача");
+  }else{
+    console.log(commits);
+  }
+}
+ //GetUser();
+</script>
