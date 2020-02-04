@@ -6,11 +6,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Application.Models;
+using MvcDataContext.Data;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using MvcFeedback.Models;
 
 namespace Application.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly DataContext _context;
+
+        public HomeController(DataContext context)
+        {
+            _context = context;
+        }
         public IActionResult Index()
         {
             return View();
@@ -19,15 +29,31 @@ namespace Application.Controllers
         [HttpPost]
         public JsonResult Feedback([FromBody]FeedbackList data)
         {
-            string email = System.Web.HttpUtility.HtmlEncode(data.Email);            
-            string text = System.Web.HttpUtility.HtmlEncode(data.Text);
-            string massege = "";
-            data.Email = data.Email.Trim();
-            if(String.IsNullOrEmpty(email)){
-                massege = "Not email";
+            //remove the indents at the beginning and at the end, decode the tags
+            data.Email = System.Web.HttpUtility.HtmlEncode(data.Email).Trim(); 
+            data.Text = System.Web.HttpUtility.HtmlEncode(data.Text).Trim();
+
+            //messages
+            Dictionary<string, string> message = new Dictionary<string, string>();
+             
+
+            if(String.IsNullOrEmpty(data.Email)){
+                message.Add("ErrEmail","You didn't enter an Email");
+            }else if(!new EmailAddressAttribute().IsValid(data.Email)){
+                message.Add("ErrEmail","You entered the email incorrectly"); 
             }
-            //string messege = "Not email";
-            return Json(massege);
+            if(String.IsNullOrEmpty(data.Text)){
+                message.Add("ErrText","You didn't enter an text");
+            }
+            if(message.Count == 0){
+                Feedback feedback = new Feedback();
+                feedback.Email = data.Email;
+                feedback.Text = data.Text; 
+                _context.Add(feedback);
+                _context.SaveChangesAsync();
+                message.Add("Success","Success");
+            }
+            return Json(message);
         }
     }
     public class FeedbackList{

@@ -9,18 +9,30 @@
         </button>
       </div>
       <div class="modal-body">
+        <div id = "feedbackSuccess" class="alert alert-success text-center" style="display: none;" role="alert">
+            <span>Success</span>
+        </div>
         <form onsubmit="GetFeedbackData();return false;">
         <div class="form-group">
             <label for="FeedbackEmail">Email</label>
             <input type="" class="form-control" id="FeedbackEmail" placeholder="Enter email">
+            <div class = "invalid-feedback d-block">
+                <span id="f-err-email"></span>
+            </div>
         </div>
         <div class="form-group">
-            <label for="FeedbackText">Text</label>
+            <label for="feedbackText">Text</label>
             <textarea class="form-control" id="FeedbackText" rows="3"></textarea>
+            <div class = "invalid-feedback d-block">
+                <span id="f-err-text"></span>
+            </div>
         </div>
         <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="Check1">
-            <label class="form-check-label" for="Check1">I agree to the processing of personal data</label>
+            <input type="checkbox" class="form-check-input" id="f-check">
+            <label class="form-check-label" for="f-check">I agree to the processing of personal data</label>
+            <div class = "invalid-feedback d-block">
+                <span id="f-err-agree"></span>
+            </div>
         </div>
         <button type="submit" class="btn btn-primary">Send</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -29,26 +41,3 @@
     </div>
   </div>
 </div>
-<script>
-   async function GetFeedbackData() {
-    const FeedbackEmail = document.getElementById("FeedbackEmail").value;
-    const FeedbackText = document.getElementById("FeedbackText").value;
-    const url = 'home/feedback';
-    let data = { Email: FeedbackEmail, Text: FeedbackText};
-    const response = await fetch(url, {
-        method: 'POST', 
-        body: JSON.stringify(data),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-        
-  });
-  let commits = await response.json();
-  if (!response.ok) {
-    console.log("Неудача");
-  }else{
-    console.log(commits);
-  }
-}
- //GetUser();
-</script>
