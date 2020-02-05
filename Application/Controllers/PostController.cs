@@ -9,6 +9,7 @@ using MvcDataContext.Data;
 using MvcUser.Models;
 using System.Linq;
 using paginationPage.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MvcPost.Controllers
 {
@@ -22,6 +23,7 @@ namespace MvcPost.Controllers
             _context = context;
         }
         // GET: /Post/ 
+        [Authorize]
         public IActionResult Index()
         {
             return View();
@@ -52,6 +54,7 @@ namespace MvcPost.Controllers
 
             return View(viewModel);
         }
+        [Authorize]
         //GET: /Post/MyList/
         public async Task<IActionResult> MyList(int page=1)
         {
@@ -93,6 +96,7 @@ namespace MvcPost.Controllers
             }
             return View(post);
         }
+        [Authorize]
         //GET: /Post/Create/
         public IActionResult Create()
         {
@@ -116,7 +120,7 @@ namespace MvcPost.Controllers
             }
             return View(post);
         }
-
+        [Authorize]
         //GET: /Post/Edit/1
         public async Task<IActionResult> Edit(int? id)
         {
@@ -156,6 +160,7 @@ namespace MvcPost.Controllers
             }
             return View(post);
         }
+        [Authorize]
         //GET: /Post/Delete/
         public async Task<IActionResult> Delete(int? id)
         {

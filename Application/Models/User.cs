@@ -9,8 +9,8 @@ namespace MvcUser.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "login not entered")]
-        public string Login { get; set; }
+        [Required(ErrorMessage = "Username not entered")]
+        public string Username { get; set; }
 
         [Required(ErrorMessage = "Password not entered")]
         [StringLength(30, MinimumLength=6, ErrorMessage = "Password must be greater than 6 and less than 30 characters")]

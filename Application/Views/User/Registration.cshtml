@@ -6,17 +6,16 @@
 
 <br>
 <br>
-<h3>@ViewBag.Message</h3>
 <div class = "center-form">
     <div  class = "center">
         <h3>Registration</h3>
     </div>
     <form asp-action="Registration">
         <div class="form-group">
-            <label asp-for="Login"></label>
-            <input asp-for="Login" class="form-control">
+            <label asp-for="Username"></label>
+            <input asp-for="Username" class="form-control">
             <div class = "invalid-feedback d-block">
-                <span asp-validation-for="Login"></span>
+                <span asp-validation-for="Username"></span>
             </div>
         </div>
         <div class="form-group">

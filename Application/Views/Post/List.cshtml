@@ -25,7 +25,7 @@
     <a asp-controller="Post" asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">More details</a>
   </div>
   <div class="card-footer text-right">
-      <span class="card-title text-right">by @Html.DisplayFor(modelItem => item.User.Login)</span>
+      <span class="card-title text-right">by @Html.DisplayFor(modelItem => item.User.Username)</span>
   </div>
 </div>
 <br>

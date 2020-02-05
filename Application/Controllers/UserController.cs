@@ -23,7 +23,7 @@ namespace MvcUser.Controllers
             _context = context;
         }
         // GET: /User/
-        [Authorize]
+        //[Authorize]
         public IActionResult Index()
         {
             if(User.Identity.IsAuthenticated){
@@ -36,7 +36,7 @@ namespace MvcUser.Controllers
         
         // GET: /User/Login/ 
 
-        public IActionResult Login ()
+        public IActionResult Login()
         {
             if(User.Identity.IsAuthenticated){
                 return RedirectToAction("Index","User");
@@ -48,22 +48,26 @@ namespace MvcUser.Controllers
         // POST: /User/Login/
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login([Bind("Id, Login,Password,Email,RedisterDate")] User user)
+        public async Task<IActionResult> Login(User user)
         {
-            User login = await _context.User.FirstOrDefaultAsync(b => b.Email == user.Email);
-            if(login != null){
-                //Check password
-                PasswordHasher ph = new PasswordHasher();
-                bool check = ph.Check(login.Password, user.Password);
-                
-                if(check){
-                    string userId = login.Id.ToString();
-                    await Authenticate(userId);
-                    ViewBag.Message = "Success";
-                    return RedirectToAction("Index","User");
+            if (ModelState["Email"].Errors.Count == 0 && ModelState["Password"].Errors.Count == 0){
+                User login = await _context.User.FirstOrDefaultAsync(b => b.Email == user.Email);
+                if(login != null){
+                    //Check password
+                    PasswordHasher ph = new PasswordHasher();
+                    bool check = ph.Check(login.Password, user.Password);
+                    
+                    if(check){
+                        string userId = login.Id.ToString();
+                        await Authenticate(userId);
+                        return RedirectToAction("Index","User");
+                    }else{
+                        ViewBag.Error = "Wrong email or password";
+                    }
+                }else{
+                    ViewBag.Error = "Wrong email or password";
                 }
             }
-            
             return View(user);
         }
         // GET: /User/Logout/
@@ -86,22 +90,19 @@ namespace MvcUser.Controllers
         // POST: /User/Registration/
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Registration([Bind("Id,Login, Password, Email,RedisterDate")] User user)
+        public async Task<IActionResult> Registration(User user)
         {
             if (ModelState.IsValid)
             {
-                User login = await _context.User.FirstOrDefaultAsync(b => b.Login == user.Login);
+                User login = await _context.User.FirstOrDefaultAsync(b => b.Username == user.Username);
                 User email = await _context.User.FirstOrDefaultAsync(b => b.Email == user.Email);
                 if(login != null){
-                    ViewBag.Message = "Login";
-
+                    ModelState.AddModelError("Username", "A user with this username exists");
                 }
                 else if(email != null){
-                    ViewBag.Message = "Email";
+                    ModelState.AddModelError("Email", "A user with this email exists");
                 }
-                else{
-                    ViewBag.Message = "Success";
-                
+                else{ 
                 PasswordHasher ph = new PasswordHasher();
                 user.Password = ph.Hash(user.Password);
                 _context.Add(user);

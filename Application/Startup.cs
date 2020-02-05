@@ -42,7 +42,10 @@ namespace Application
 
             //For authorization
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-        .AddCookie();
+        .AddCookie(options =>
+        {
+            options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/User/Login");
+        });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,7 +54,7 @@ namespace Application
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseStatusCodePagesWithRedirects("/Error");;
+                //app.UseStatusCodePagesWithRedirects("/Error");;
             }else
             {
                 app.UseStatusCodePagesWithRedirects("/Error");
@@ -61,7 +64,8 @@ namespace Application
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseRouting();
-            app.UseAuthentication();    
+            app.UseAuthentication();
+            app.UseAuthorization();    
 
             app.UseEndpoints(endpoints =>
             {

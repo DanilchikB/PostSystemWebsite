@@ -10,6 +10,7 @@ using MvcDataContext.Data;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using MvcFeedback.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Application.Controllers
 {
