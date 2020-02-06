@@ -3,33 +3,36 @@
     ViewData["Title"] = "List";  
 }
 <div class = "center">
-<div class="btn-group mt-4" role="group" aria-label="Basic example">
-    <a asp-controller="Post" asp-action="List" class="btn btn-primary text-white">
-        List
-    </a>
-    <a asp-controller="Post" asp-action="MyList" class="btn btn-primary text-white">
-        My list
-    </a>
-    <a asp-controller = "Post" asp-action="Create" class="btn btn-success text-white">
-        Create
-    </a>
-</div>
+    <div class="btn-group mt-4" role="group" aria-label="Basic example">
+        <a asp-controller="Post" asp-action="List" class="btn btn-primary text-white">
+            List
+        </a>
+        <a asp-controller="Post" asp-action="MyList" class="btn btn-primary text-white">
+            My list
+        </a>
+        <a asp-controller = "Post" asp-action="Create" class="btn btn-success text-white">
+            Create
+        </a>
+    </div>
 </div>
 <div class = "posts">
-@foreach (var item in Model.Posts) { 
-<div class="card">
-<h5 class="card-header text-white bg-primary">Post</h5>
-<div class="card-body">
-    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
-    <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
-    <a asp-controller="Post" asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">More details</a>
-  </div>
-  <div class="card-footer text-right">
-      <span class="card-title text-right">by @Html.DisplayFor(modelItem => item.User.Username)</span>
-  </div>
-</div>
-<br>
-}  
+    @foreach (var item in Model.Posts) { 
+    <div class="card">
+    <h5 class="card-header text-white bg-primary">Post</h5>
+    <div class="card-body">
+        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
+        <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+        <a asp-controller="Post" asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">More details</a>
+    </div>
+    <div class="card-footer text-right">
+        <svg id = "like" onclick="ClickLike(this)" width="32" height="32" class="bi bi-heart-fill" width="1em" height="1em" viewBox="0 0 20 20" fill="DarkGray" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M10 3.314C14.438-1.248 25.534 6.735 10 17-5.534 6.736 5.562-1.248 10 3.314z" clip-rule="evenodd"/>
+        </svg>
+        <!--<span class="card-title text-right">by @Html.DisplayFor(modelItem => item.User.Username)</span>-->
+    </div>
+    </div>
+    <br>
+    }  
 </div> 
 @if(Model.PageCount > 1){
   ViewBag.page = "List";

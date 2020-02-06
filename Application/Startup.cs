@@ -38,7 +38,8 @@ namespace Application
             services.AddDbContext<DataContext>(options =>
             options.UseSqlite(Configuration.GetConnectionString("DataContext")));
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                .AddRazorRuntimeCompilation();
 
             //For authorization
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

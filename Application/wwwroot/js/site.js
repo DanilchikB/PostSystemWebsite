@@ -49,3 +49,12 @@ async function GetFeedbackData() {
     }
 
 }
+function ClickLike(element){
+    //let like = document.getElementById("like");
+    if(element.getAttribute('fill') == "DarkGray"){
+        element.setAttribute('fill','Red');
+    }else{
+        element.setAttribute('fill','DarkGray');
+    }
+    
+}
