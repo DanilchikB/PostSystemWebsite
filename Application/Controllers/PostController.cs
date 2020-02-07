@@ -34,7 +34,10 @@ namespace MvcPost.Controllers
         {
             int itemsSize = 5;
             int countButton;
-            IQueryable<Post> posts = _context.Post.Include(p=>p.User);
+            IQueryable<Post> posts = _context.Post
+                .Include(p=>p.User)
+                .Include(p=>p.Likes)
+                    .ThenInclude(sc => sc.Post);
             posts = posts.OrderByDescending(x => x.Id);
             int postCount = posts.Count();
             float count = (float)postCount/itemsSize-postCount/itemsSize;

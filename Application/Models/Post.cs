@@ -1,6 +1,8 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using MvcUser.Models;
+using MvcLike.Models;
+using System.Collections.Generic;
 
 namespace MvcPost.Models
 {
@@ -19,5 +21,10 @@ namespace MvcPost.Models
         public int UserId { get; set; }
         public User User { get; set; }
 
+        public List<Like> Likes {get; set;}
+        public Post()
+        {
+            Likes = new List<Like>();
+        }
     }
 }

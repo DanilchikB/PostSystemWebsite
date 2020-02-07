@@ -49,12 +49,25 @@ async function GetFeedbackData() {
     }
 
 }
-function ClickLike(element){
-    //let like = document.getElementById("like");
-    if(element.getAttribute('fill') == "DarkGray"){
-        element.setAttribute('fill','Red');
-    }else{
-        element.setAttribute('fill','DarkGray');
+async function ClickLike(element){
+    console.log(element.dataset.postId);
+    const url = '/Ajax/Like';
+    let data = { PostId: element.dataset.postId, Status: element.dataset.status};
+    const response = await fetch(url, {
+        method: 'POST', 
+        body: JSON.stringify(data),
+        headers: {
+        'Content-Type': 'application/json'
+        }
+    });
+    if (response.ok) {
+        if(element.dataset.status == 'false'){  
+            element.setAttribute('fill','Red');
+            element.dataset.status = 'true';
+        }else{
+            element.setAttribute('fill','DarkGray');
+            element.dataset.status = 'false';
+        }
     }
     
 }

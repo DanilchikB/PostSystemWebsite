@@ -1,3 +1,4 @@
+@using MvcLike.Models
 @model paginationPage.Models.ListPages
 @{
     ViewData["Title"] = "List";  
@@ -17,6 +18,15 @@
 </div>
 <div class = "posts">
     @foreach (var item in Model.Posts) { 
+    Like user = item.Likes.FirstOrDefault(n=>n.UserId == Int32.Parse(User.Identity.Name));
+    string status = "false";
+    string colorLike = "DarkGrey";
+    int LikesCount = item.Likes.Count();
+    if(user!=null){
+        status = "true";
+        colorLike = "Red";
+    }
+
     <div class="card">
     <h5 class="card-header text-white bg-primary">Post</h5>
     <div class="card-body">
@@ -25,9 +35,10 @@
         <a asp-controller="Post" asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">More details</a>
     </div>
     <div class="card-footer text-right">
-        <svg id = "like" onclick="ClickLike(this)" width="32" height="32" class="bi bi-heart-fill" width="1em" height="1em" viewBox="0 0 20 20" fill="DarkGray" xmlns="http://www.w3.org/2000/svg">
+        <svg id = "like" data-status = "@status" data-post-id="@item.Id" onclick="ClickLike(this)" width="32" height="32" class="bi bi-heart-fill" width="1em" height="1em" viewBox="0 0 20 20" fill="@colorLike" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" d="M10 3.314C14.438-1.248 25.534 6.735 10 17-5.534 6.736 5.562-1.248 10 3.314z" clip-rule="evenodd"/>
         </svg>
+        <span>@LikesCount</span>
         <!--<span class="card-title text-right">by @Html.DisplayFor(modelItem => item.User.Username)</span>-->
     </div>
     </div>
