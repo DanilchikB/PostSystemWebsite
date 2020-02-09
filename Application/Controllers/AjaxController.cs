@@ -6,6 +6,7 @@ using MvcUser.Models;
 using System.Collections.Generic;
 using MvcDataContext.Data;
 using Microsoft.EntityFrameworkCore;
+using MvcComment.Models;
 
 
 namespace Mvc.Error.Controllers{
@@ -17,6 +18,7 @@ namespace Mvc.Error.Controllers{
         {
             _context = context;
         }
+        //Like post
         [HttpPost]
         public void Like([FromBody]JsonLike data)
         {
@@ -34,9 +36,24 @@ namespace Mvc.Error.Controllers{
             }
             
         }
+
+        //post commenting
+        public void Comment([FromBody]JsonComment data){
+            Comment comment = new Comment{
+                Text=data.Text,
+                UserId=Int32.Parse(User.Identity.Name),
+                PostId=data.PostId
+            };
+            _context.Add(comment);
+            _context.SaveChangesAsync();
+        }
     }
     public class JsonLike{
         public string PostId {get; set;}
         public string Status {get; set; }
+    }
+    public class JsonComment{
+        public int PostId {get; set;}
+        public string Text {get; set;}
     }
 }

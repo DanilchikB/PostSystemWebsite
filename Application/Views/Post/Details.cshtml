@@ -12,4 +12,16 @@
     <p class="card-text">Description: @Html.DisplayFor(model => model.Description)</p>
     <p class="card-text">@Html.DisplayFor(model => model.Text)</p>
   </div>
+  <hr/>
+  <div class = "Comments mx-5 mb-5">
+  <h5 class = "ml-1">Comments</h5>
+    <div class="input-group">
+      <input type="text" id="input-comment" class="form-control" placeholder="Your comment" onkeydown = "addComment()" data-post-id="@Model.Id">
+      <div class="input-group-append">
+        <button class="btn btn-success" type="button" id="add-comment" onclick="addComment()">
+          Add
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

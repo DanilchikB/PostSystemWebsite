@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using MvcUser.Models;
 using MvcLike.Models;
+using MvcComment.Models;
 using System.Collections.Generic;
 
 namespace MvcPost.Models
@@ -18,13 +19,17 @@ namespace MvcPost.Models
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
 
+        //connection with the User models
         public int UserId { get; set; }
         public User User { get; set; }
 
+        //connection with the Like models
         public List<Like> Likes {get; set;}
         public Post()
         {
             Likes = new List<Like>();
         }
+        //connection with the Comment models
+        public List<Comment> Comments{get;set;}
     }
 }

@@ -51,6 +51,7 @@ async function GetFeedbackData() {
 }
 async function ClickLike(element){
     console.log(element.dataset.postId);
+    let countLikes = document.getElementById("count-likes");
     const url = '/Ajax/Like';
     let data = { PostId: element.dataset.postId, Status: element.dataset.status};
     const response = await fetch(url, {
@@ -61,13 +62,32 @@ async function ClickLike(element){
         }
     });
     if (response.ok) {
-        if(element.dataset.status == 'false'){  
+        if(element.dataset.status == 'false'){
+            element.nextElementSibling.innerHTML++;
             element.setAttribute('fill','Red');
             element.dataset.status = 'true';
         }else{
+            element.nextElementSibling.innerHTML--;
             element.setAttribute('fill','DarkGray');
             element.dataset.status = 'false';
         }
     }
     
+}
+
+//add comment
+async function addComment(){
+    let input = document.getElementById("input-comment");
+    const url = '/Ajax/Comment';
+    const data = { PostId: parseInt(input.dataset.postId), Text: input.value};
+    const response = await fetch(url, {
+        method: 'POST', 
+        body: JSON.stringify(data),
+        headers: {
+        'Content-Type': 'application/json'
+        }
+    });
+    if (response.ok) {
+        alert("Ok");
+    }
 }
