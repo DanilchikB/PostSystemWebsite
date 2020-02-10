@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using MvcDataContext.Data;
 using Microsoft.EntityFrameworkCore;
 using MvcComment.Models;
+using MvcPost.Models;
 
 
 namespace Mvc.Error.Controllers{
@@ -36,9 +37,10 @@ namespace Mvc.Error.Controllers{
             }
             
         }
-
+        
         //post commenting
-        public void Comment([FromBody]JsonComment data){
+        [HttpPost]
+        public void AddComment([FromBody]JsonComment data){
             Comment comment = new Comment{
                 Text=data.Text,
                 UserId=Int32.Parse(User.Identity.Name),
@@ -47,6 +49,26 @@ namespace Mvc.Error.Controllers{
             _context.Add(comment);
             _context.SaveChangesAsync();
         }
+        //get comments for detail post
+        [HttpPost]
+        public JsonResult GetComments([FromBody]int PostId){
+            Post post = _context.Post
+                .Include(p => p.Comments)
+                    .ThenInclude(c => c.User)
+                .FirstOrDefault(s => s.Id == PostId);
+            List<ViewComments> comments = new List<ViewComments>(post.Comments.Count());
+            foreach(Comment item in post.Comments){
+                comments.Add(new ViewComments{
+                    UserName = item.User.Username,
+                    Text = item.Text
+                });
+                Console.WriteLine(item.Text);
+                Console.WriteLine(item.User.Username);
+                 Console.WriteLine(post.Comments.Count());
+            }
+            //Console.WriteLine(PostId);
+            return Json(comments);
+        }
     }
     public class JsonLike{
         public string PostId {get; set;}
@@ -54,6 +76,10 @@ namespace Mvc.Error.Controllers{
     }
     public class JsonComment{
         public int PostId {get; set;}
+        public string Text {get; set;}
+    }
+    public class ViewComments{
+        public string UserName {get; set;}
         public string Text {get; set;}
     }
 }

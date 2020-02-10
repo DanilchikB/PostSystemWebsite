@@ -78,7 +78,7 @@ async function ClickLike(element){
 //add comment
 async function addComment(){
     let input = document.getElementById("input-comment");
-    const url = '/Ajax/Comment';
+    const url = '/Ajax/AddComment';
     const data = { PostId: parseInt(input.dataset.postId), Text: input.value};
     const response = await fetch(url, {
         method: 'POST', 
@@ -90,4 +90,31 @@ async function addComment(){
     if (response.ok) {
         alert("Ok");
     }
+}
+//getComment
+async function getComments(){
+    let commentsBlock = document.getElementById('comment-block');
+    const url = '/Ajax/GetComments';
+    const data = parseInt(commentsBlock.dataset.postId);
+    const response = await fetch(url, {
+        method: 'POST', 
+        body: JSON.stringify(data),
+        headers: {
+        'Content-Type': 'application/json'
+        }
+    });
+    let comments = await response.json();
+    if (response.ok) {
+        console.log(comments);
+    }
+}
+//view comments
+function viewComments(){
+    let comments = document.getElementById('comment-block');
+    let buttonView = document.getElementById('button-view');
+    buttonView.remove();
+    //comments.insertAdjacentElement('afterbegin', buttonView);
+    comments.insertAdjacentHTML('afterbegin','<h5 class = "ml-1">Comments</h5>');
+    comments.insertAdjacentHTML('beforeend','<div class="input-group"><input type="text" id="input-comment" class="form-control" placeholder="Your comment" data-post-id="'+comments.dataset.postId+'"> <div class="input-group-append"><button class="btn btn-success" type="button" id="add-comment" onclick="addComment()"> Add </button> </div> </div>');
+    getComments();
 }

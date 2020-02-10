@@ -4,7 +4,7 @@
     ViewData["Title"] = "Details";
 }
 <h3 class = "text-center mt-5 mb-5">Details</h3>
-<div class="card detailed-post">
+<div class="card detailed-post mb-3">
   <div class="card-header text-center">
     @Html.DisplayFor(model => model.Title)
   </div>
@@ -12,16 +12,8 @@
     <p class="card-text">Description: @Html.DisplayFor(model => model.Description)</p>
     <p class="card-text">@Html.DisplayFor(model => model.Text)</p>
   </div>
-  <hr/>
-  <div class = "Comments mx-5 mb-5">
-  <h5 class = "ml-1">Comments</h5>
-    <div class="input-group">
-      <input type="text" id="input-comment" class="form-control" placeholder="Your comment" onkeydown = "addComment()" data-post-id="@Model.Id">
-      <div class="input-group-append">
-        <button class="btn btn-success" type="button" id="add-comment" onclick="addComment()">
-          Add
-        </button>
-      </div>
-    </div>
-  </div>
+  
+</div>
+<div class="card detailed-post pt-4 pb-4">
+  @await Html.PartialAsync("_Comments")
 </div>
