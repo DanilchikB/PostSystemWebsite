@@ -42,7 +42,7 @@ namespace Mvc.Error.Controllers{
         [HttpPost]
         public void AddComment([FromBody]JsonComment data){
             Comment comment = new Comment{
-                Text=data.Text,
+                Text=System.Web.HttpUtility.HtmlEncode(data.Text),
                 UserId=Int32.Parse(User.Identity.Name),
                 PostId=data.PostId
             };

@@ -105,16 +105,77 @@ async function getComments(){
     });
     let comments = await response.json();
     if (response.ok) {
-        console.log(comments);
+        return comments;
     }
+    return false;
 }
 //view comments
-function viewComments(){
-    let comments = document.getElementById('comment-block');
+async function viewComments(){
+    let commentsBlock = document.getElementById('comment-block');
+    let helpAnimation = document.getElementById('help-animation');
     let buttonView = document.getElementById('button-view');
     buttonView.remove();
+    helpAnimation.style.height = 0;
     //comments.insertAdjacentElement('afterbegin', buttonView);
-    comments.insertAdjacentHTML('afterbegin','<h5 class = "ml-1">Comments</h5>');
-    comments.insertAdjacentHTML('beforeend','<div class="input-group"><input type="text" id="input-comment" class="form-control" placeholder="Your comment" data-post-id="'+comments.dataset.postId+'"> <div class="input-group-append"><button class="btn btn-success" type="button" id="add-comment" onclick="addComment()"> Add </button> </div> </div>');
-    getComments();
+    commentsBlock.insertAdjacentHTML('afterbegin','<h5 class = "ml-1">Comments</h5>');
+    commentsBlock.insertAdjacentHTML('beforeend','<div class="input-group"><input type="text" id="input-comment" class="form-control" placeholder="Your comment" data-post-id="'+commentsBlock.dataset.postId+'"> <div class="input-group-append"><button class="btn btn-success" type="button" id="add-comment" onclick="addComment()"> Add </button> </div> </div>');
+    let comments = await getComments();
+    if(comments.length > 0){
+        console.log(comments);
+        let commentsArea = document.createElement('div');
+        
+        commentsArea.id = "comments";
+        for(i = 0; i < comments.length; i++){
+            let comment = document.createElement('div');
+            let userName = document.createElement('a');
+            let text = document.createElement('div');
+            let line = document.createElement('hr');
+            text.className = "comment-text";
+            line.className = "mx-2";
+            comment.id = "comment";
+            comment.className = "ml-4"
+            userName.innerHTML = comments[i].userName;
+            text.innerHTML = comments[i].text;
+            comment.append(userName);
+            comment.append(text);
+            commentsArea.append(line);
+            commentsArea.append(comment);
+        }
+        commentsBlock.append(commentsArea);
+        animate({
+            duration: 700,
+            timing(timeFraction) {
+              return Math.pow(timeFraction, 2);
+            },
+            draw(progress) {
+                helpAnimation.style.height = progress * commentsBlock.offsetHeight + 'px';
+            }
+          });
+          //commentsBlock.style.height = 0;
+          console.log(commentsBlock.offsetHeight);
+    }else{
+        console.log("Нету");
+    }
 }
+
+//animation
+function animate(options) {
+
+    var start = performance.now();
+  
+    requestAnimationFrame(function animate(time) {
+      
+      var timeFraction = (time - start) / options.duration;
+      if (timeFraction > 1) timeFraction = 1;
+  
+      
+      var progress = options.timing(timeFraction)
+      
+      options.draw(progress);
+  
+      if (timeFraction < 1) {
+        requestAnimationFrame(animate);
+      }
+  
+    });
+  }

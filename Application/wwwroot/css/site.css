@@ -39,6 +39,12 @@ body {
 .feedback-text-header{
   margin-left: 37%;
 }
+#help-animation{
+  overflow: hidden;
+}
+.comment-text{
+  white-space: pre-wrap;
+}
 @media (max-width: 599px) {
   .center-form{
     margin: 0 auto;
