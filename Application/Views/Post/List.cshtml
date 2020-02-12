@@ -28,7 +28,10 @@
     }
 
     <div class="card">
-    <h5 class="card-header text-white bg-primary">Post</h5>
+    <div class="card-header d-flex flex-row align-items-center">
+        <div class = "avatar"></div>
+        <div class = "ml-2">@item.User.Username</div>
+    </div>
     <div class="card-body">
         <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
         <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
@@ -39,7 +42,6 @@
             <path fill-rule="evenodd" d="M10 3.314C14.438-1.248 25.534 6.735 10 17-5.534 6.736 5.562-1.248 10 3.314z" clip-rule="evenodd"/>
         </svg>
         <span id = "count-likes">@LikesCount</span>
-        <!--<span class="card-title text-right">by @Html.DisplayFor(modelItem => item.User.Username)</span>-->
     </div>
     </div>
     <br>

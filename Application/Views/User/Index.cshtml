@@ -1,5 +1,16 @@
+@using MvcLike.Models
+@model MvcUser.Models.User
 @{
     ViewData["Title"] = "User";
 }
-
-<div>@User.Identity.IsAuthenticated</div>
+<div class = "posts user">
+    <div class="center-block container text-center">
+        <div class = "avatar center-block"></div>
+        <div>@Model.Username</div>
+        @if(@Model.Id == Int32.Parse(User.Identity.Name)){
+            <a asp-controller = "post" asp-action="mylist" class="btn btn-success text-white">My posts</a>
+        }else{
+            <a asp-controller = "post" asp-action="list" class="btn btn-primary text-white">View posts</a>
+        }
+    </div>
+</div>

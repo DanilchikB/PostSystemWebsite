@@ -8,6 +8,7 @@ using MvcDataContext.Data;
 using Microsoft.EntityFrameworkCore;
 using MvcComment.Models;
 using MvcPost.Models;
+using System.Threading.Tasks;
 
 
 namespace Mvc.Error.Controllers{
@@ -21,18 +22,18 @@ namespace Mvc.Error.Controllers{
         }
         //Like post
         [HttpPost]
-        public void Like([FromBody]JsonLike data)
+        public async Task Like([FromBody]JsonLike data)
         {
             if(data.Status == "false"){
                 Like like = new Like{ UserId = Int32.Parse(User.Identity.Name),PostId = Int32.Parse(data.PostId)};
                 _context.Add(like);
-                _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
             }else{
                 User user = _context.User.Include(s=>s.Likes).FirstOrDefault(s => s.Id == Int32.Parse(User.Identity.Name));
                 if(user!=null){
                     Like like = user.Likes.FirstOrDefault(s => s.PostId == Int32.Parse(data.PostId));
                     user.Likes.Remove(like);
-                    _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync();
                 }
             }
             
@@ -40,22 +41,22 @@ namespace Mvc.Error.Controllers{
         
         //post commenting
         [HttpPost]
-        public void AddComment([FromBody]JsonComment data){
+        public async Task AddComment([FromBody]JsonComment data){
             Comment comment = new Comment{
                 Text=System.Web.HttpUtility.HtmlEncode(data.Text),
                 UserId=Int32.Parse(User.Identity.Name),
                 PostId=data.PostId
             };
             _context.Add(comment);
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
         //get comments for detail post
         [HttpPost]
-        public JsonResult GetComments([FromBody]int PostId){
-            Post post = _context.Post
+        public async Task<JsonResult> GetComments([FromBody]int PostId){
+            Post post = await _context.Post
                 .Include(p => p.Comments)
                     .ThenInclude(c => c.User)
-                .FirstOrDefault(s => s.Id == PostId);
+                .FirstOrDefaultAsync(s => s.Id == PostId);
             List<ViewComments> comments = new List<ViewComments>(post.Comments.Count());
             foreach(Comment item in post.Comments){
                 comments.Add(new ViewComments{

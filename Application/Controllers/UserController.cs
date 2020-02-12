@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
@@ -24,10 +25,18 @@ namespace MvcUser.Controllers
         }
         // GET: /User/
         //[Authorize]
-        public IActionResult Index()
+        public async Task<IActionResult> Index(int? id)
         {
             if(User.Identity.IsAuthenticated){
-                return View();
+                User user;
+                if(id == null || id == Int32.Parse(User.Identity.Name)){
+                    user = await _context.User
+                    .Include(u=>u.Posts)
+                    .FirstOrDefaultAsync(u => u.Id == Int32.Parse(User.Identity.Name));
+                }else{
+                    user = await _context.User.FirstOrDefaultAsync(u => u.Id == id);   
+                }
+                return View(user);
             }else{
                 return RedirectToAction("Login","User");
             }

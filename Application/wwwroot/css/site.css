@@ -45,6 +45,12 @@ body {
 .comment-text{
   white-space: pre-wrap;
 }
+.avatar{
+  background-color: #dc3545;
+  border-radius: 50%;
+  width:50px;
+  height: 50px;
+}
 @media (max-width: 599px) {
   .center-form{
     margin: 0 auto;
@@ -91,6 +97,12 @@ body {
 }
 .input-validation-error{
   border-color:#dc3545;
+}
+.center-block{
+  margin: 0 auto;
+}
+.user{
+  margin-top: 10%;
 }
 
 
