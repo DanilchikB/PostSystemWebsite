@@ -15,6 +15,7 @@ obj/
 test.db
 test.db-shm
 test.db-wal
+wwwroot/lib/cropperjs
 
 
 
