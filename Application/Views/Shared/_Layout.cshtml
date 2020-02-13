@@ -100,8 +100,17 @@
         </div>  
     </footer>
     <!--Modal window feedback-->
-
     @await Html.PartialAsync("_Feedback")
+
+    @{
+        string Controller = ViewContext.RouteData.Values["Controller"].ToString();
+        string Action = ViewContext.RouteData.Values["Action"].ToString();
+    }
+    @if(Controller=="User" && Action=="Index"){
+        <link  href="~/lib/cropperjs/cropper.css" rel="stylesheet">
+        <script src="~/lib/cropperjs/cropper.js"></script>
+        <script src="~/js/addPhoto.js"></script>
+    }
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script src="~/js/site.js"></script>
