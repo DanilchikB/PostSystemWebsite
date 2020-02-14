@@ -9,16 +9,22 @@ using Microsoft.EntityFrameworkCore;
 using MvcComment.Models;
 using MvcPost.Models;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 
 namespace Mvc.Error.Controllers{
     public class AjaxController : Controller
     {
         private readonly DataContext _context;
+        private readonly IWebHostEnvironment _appEnvironment;
 
-        public AjaxController(DataContext context)
+        public AjaxController(DataContext context,IWebHostEnvironment appEnvironment)
         {
             _context = context;
+            _appEnvironment = appEnvironment;
+            
         }
         //Like post
         [HttpPost]
@@ -70,6 +76,22 @@ namespace Mvc.Error.Controllers{
             //Console.WriteLine(PostId);
             return Json(comments);
         }
+        
+        //add avatar
+        [HttpPost]
+        public async Task AddPhoto(getImage avatar){
+            if (avatar != null){
+                
+                string path = "/users/avatars/" + "test.png";
+                
+                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                {
+                    await avatar.Image.CopyToAsync(fileStream);
+                }
+                
+            }
+            
+        }
     }
     public class JsonLike{
         public string PostId {get; set;}
@@ -82,5 +104,8 @@ namespace Mvc.Error.Controllers{
     public class ViewComments{
         public string UserName {get; set;}
         public string Text {get; set;}
+    }
+    public class getImage{
+        public IFormFile Image {get; set;}
     }
 }
