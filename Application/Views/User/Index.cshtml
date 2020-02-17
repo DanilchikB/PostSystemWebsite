@@ -6,14 +6,24 @@
 <div class = "posts user">
     <div class="center-block container text-center">
         @if(@Model.Id == Int32.Parse(User.Identity.Name)){
-            <div class = "avatar center-block my-page" data-toggle="modal" data-target="#modalAddPhoto"></div>
+            <div class = "avatar my-avatar center-block my-page" data-toggle="modal" data-target="#modalAddPhoto">
+                <img src="~/@Model.Avatar" class = "img-avatar" id = "imgAvatar">
+            </div>
             <div>@Model.Username</div>
             <a asp-controller = "post" asp-action="mylist" class="btn btn-success text-white">My posts</a>
             @await Html.PartialAsync("_AddPhoto");
         }else{
-            <div class = "avatar center-block"></div>
+            <div class = "avatar center-block">
+                <img src="~/@Model.Avatar" class = "img-avatar">
+            </div>
             <div>@Model.Username</div>
             <a asp-controller = "post" asp-action="list" class="btn btn-primary text-white">View posts</a>
         }
     </div>
+    <div id="popupMiniMessage" class="toast success-message text-center" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
+        <div class="toast-body alert-success">
+            <div class="mr-auto">Success</div>
+        </div>
+    </div>
+
 </div>

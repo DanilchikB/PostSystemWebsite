@@ -22,7 +22,7 @@ namespace MvcUser.Models
         [EmailAddress(ErrorMessage = "Email is not entered correctly")]
         public string Email { get; set; }
 
-        public int Admin { get; set; }
+        public string Avatar { get; set; }
         [DataType(DataType.Date)]
         public DateTime RedisterDate { get; set; }
         //connection with the Post models

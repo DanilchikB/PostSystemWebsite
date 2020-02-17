@@ -81,10 +81,12 @@ namespace Mvc.Error.Controllers{
         [HttpPost]
         public async Task AddPhoto(getImage avatar){
             if (avatar != null){
+                string path = "users/avatars/" + User.Identity.Name+".png";
+                User user = _context.User.FirstOrDefault(s => s.Id == Int32.Parse(User.Identity.Name));
+                user.Avatar = path;
+                await _context.SaveChangesAsync();
                 
-                string path = "/users/avatars/" + "test.png";
-                
-                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                using (var fileStream = new FileStream(_appEnvironment.WebRootPath +"/"+ path, FileMode.Create))
                 {
                     await avatar.Image.CopyToAsync(fileStream);
                 }

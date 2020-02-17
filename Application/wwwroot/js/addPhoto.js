@@ -3,6 +3,7 @@
 var cropper=null;
 const imageArea = document.getElementById('image-area');
 const buttonAddPhoto = document.getElementById('buttonAddAvatar');
+const imageAvatar = document.getElementById('imgAvatar');
 /*event*/
 $('#modalAddPhoto').on('hide.bs.modal', deleteImageArea);
 /*end event*/
@@ -29,16 +30,11 @@ function addPhoto(element){
 
 function viewCropper(image){
   
-  console.log(cropper)
   cropper = new Cropper(image, {
     aspectRatio: 1,
     viewMode: 2,
     initialAspectRatio: 1,
     background: false,
-    
-    crop(event) {
-      console.log(event.detail.x);
-    },
   });
 
 }
@@ -52,7 +48,6 @@ function deleteImageArea(){
     cropper = null;
     buttonAddPhoto.style.display="none";
   }
-  console.log(window)
 }
 
 function addPhotoOnServer(){
@@ -66,7 +61,10 @@ function addPhotoOnServer(){
           body: formData
         });
         if (response.ok) {
-            console.log('Успех');
+          $('#modalAddPhoto').modal('hide');
+          let path = imageAvatar.src.split('?');
+          imageAvatar.src = path[0] + '?' + new Date().getTime();
+          $('#popupMiniMessage').toast('show');
         }
     });
   }
