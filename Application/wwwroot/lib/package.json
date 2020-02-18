@@ -1,0 +1,9 @@
+{
+  "name": "lib",
+  "version": "1.0.0",
+  "dependencies": {
+    "bootstrap": "^4.4.1",
+    "cropperjs": "^1.5.6",
+    "jquery": "^3.4.1"
+  }
+}

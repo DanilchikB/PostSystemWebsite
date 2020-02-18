@@ -15,7 +15,8 @@ obj/
 test.db
 test.db-shm
 test.db-wal
-Application/wwwroot/lib/cropperjs
+Application/wwwroot/lib/node_modules
+Application/wwwroot/lib/package-lock.json
 
 
 
