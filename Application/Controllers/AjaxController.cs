@@ -47,14 +47,25 @@ namespace Mvc.Error.Controllers{
         
         //post commenting
         [HttpPost]
-        public async Task AddComment([FromBody]JsonComment data){
+        public async Task<JsonResult> AddComment([FromBody]JsonComment data){
+            User user = _context.User.FirstOrDefault(s => s.Id == Int32.Parse(User.Identity.Name));
             Comment comment = new Comment{
                 Text=System.Web.HttpUtility.HtmlEncode(data.Text),
                 UserId=Int32.Parse(User.Identity.Name),
-                PostId=data.PostId
+                PostId=data.PostId,
+                Date = DateTime.Now
             };
             _context.Add(comment);
             await _context.SaveChangesAsync();
+            ViewComments viewComment = new ViewComments{
+                Id = User.Identity.Name,
+                UserName = user.Username,
+                Avatar = user.Avatar,
+                Date = comment.Date.ToString("MM.dd.yyyy hh:mm tt"),
+                Text = comment.Text
+                
+            };
+            return Json(viewComment);
         }
         //get comments for detail post
         [HttpPost]
@@ -63,10 +74,16 @@ namespace Mvc.Error.Controllers{
                 .Include(p => p.Comments)
                     .ThenInclude(c => c.User)
                 .FirstOrDefaultAsync(s => s.Id == PostId);
+            List<Comment> sortingComments = post.Comments
+                .OrderBy(x => x.Id)
+                .ToList();
             List<ViewComments> comments = new List<ViewComments>(post.Comments.Count());
-            foreach(Comment item in post.Comments){
+            foreach(Comment item in sortingComments){
                 comments.Add(new ViewComments{
+                    Id = User.Identity.Name,
                     UserName = item.User.Username,
+                    Avatar = item.User.Avatar,
+                    Date = item.Date.ToString("MM.dd.yyyy hh:mm tt"),
                     Text = item.Text
                 });
                 Console.WriteLine(item.Text);
@@ -104,7 +121,10 @@ namespace Mvc.Error.Controllers{
         public string Text {get; set;}
     }
     public class ViewComments{
+        public string Id {get; set;}
         public string UserName {get; set;}
+        public string Avatar {get; set;}
+        public string Date {get; set;}
         public string Text {get; set;}
     }
     public class getImage{

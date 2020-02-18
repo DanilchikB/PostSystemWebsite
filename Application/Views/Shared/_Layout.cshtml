@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
     
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/lib/node_modules/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-primary text-white">
-        <a class="navbar-brand">Navbar</a>
+        <a class="navbar-brand text-white">Navbar</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -103,16 +103,16 @@
     @await Html.PartialAsync("_Feedback")
 
     
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/node_modules/jquery/dist/jquery.js"></script>
+    <script src="~/lib/node_modules/bootstrap/dist/js/bootstrap.js"></script>
     <script src="~/js/site.js"></script>
     @{
         string Controller = ViewContext.RouteData.Values["Controller"].ToString();
         string Action = ViewContext.RouteData.Values["Action"].ToString();
     }
     @if(Controller=="User" && Action=="Index"){
-        <link  href="~/lib/cropperjs/cropper.css" rel="stylesheet">
-        <script src="~/lib/cropperjs/cropper.js"></script>
+        <link  href="~/lib/node_modules/cropperjs/dist/cropper.css" rel="stylesheet">
+        <script src="~/lib/node_modules/cropperjs/dist/cropper.js"></script>
         <script src="~/js/addPhoto.js"></script>
     }
 </body>

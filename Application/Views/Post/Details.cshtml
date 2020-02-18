@@ -5,10 +5,17 @@
 }
 <h3 class = "text-center mt-5 mb-5">Details</h3>
 <div class="card detailed-post mb-3">
-  <div class="card-header text-center">
-    @Html.DisplayFor(model => model.Title)
+  <div class="card-header d-flex flex-row align-items-center">
+    <div class = "avatar mr-3">
+          <img src="~/@Model.User.Avatar" class = "img-avatar">
+    </div>
+    <a asp-controller="User" asp-action="Index" asp-route-id="@Model.User.Id">
+      @Html.DisplayFor(model => model.User.Username)
+    </a>
+    
   </div>
   <div class="card-body">
+    <h4 class = "text-center mb-3">@Html.DisplayFor(model => model.Title)</h4>
     <p class="card-text">Description: @Html.DisplayFor(model => model.Description)</p>
     <p class="card-text">@Html.DisplayFor(model => model.Text)</p>
   </div>

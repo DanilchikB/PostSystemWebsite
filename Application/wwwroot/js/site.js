@@ -77,6 +77,8 @@ async function ClickLike(element){
 
 //add comment
 async function addComment(){
+    let helpAnimation = document.getElementById('help-animation');
+    let commentsBlock = document.getElementById('comment-block');
     let input = document.getElementById("input-comment");
     const url = '/Ajax/AddComment';
     const data = { PostId: parseInt(input.dataset.postId), Text: input.value};
@@ -87,8 +89,51 @@ async function addComment(){
         'Content-Type': 'application/json'
         }
     });
+    let commentMessage = await response.json();
     if (response.ok) {
-        alert("Ok");
+        let commentsArea = document.getElementById('comments');
+        if(commentsArea == null){
+            commentsArea = document.createElement('div');
+            commentsArea.id = "comments";
+            commentsBlock.append(commentsArea);
+        }
+        let comment = document.createElement('div');
+        let avatarBlock = document.createElement('div');
+        let avatar = document.createElement('img');
+        let text = document.createElement('div');
+        let line = document.createElement('hr');
+        let nameAndText = document.createElement('div');
+        let nameAndDate = document.createElement('div');
+        let userName = document.createElement('a');
+        let date = document.createElement('div');
+
+        avatarBlock.className = 'avatar mr-3';
+        avatar.src = '';
+        avatar.className = 'img-avatar';
+
+        nameAndDate.className = 'row ml-1';
+        date.className = "text-secondary";
+        text.className = "comment-text ml-1";
+        line.className = "mx-2";
+        comment.id = "comment";
+        comment.className = "ml-4 row";
+        userName.href = "/User/Index/"+commentMessage.id;
+        userName.innerHTML = commentMessage.userName;
+        text.innerHTML = commentMessage.text;
+        date.innerHTML = "&nbsp;&nbsp;" + commentMessage.date;
+        
+
+        nameAndDate.prepend(userName);
+        nameAndDate.append(date);
+        nameAndText.append(nameAndDate);
+        nameAndText.append(text);
+        avatarBlock.prepend(avatar);
+        comment.prepend(avatarBlock);
+        comment.append(nameAndText);
+        commentsArea.prepend(comment);
+        commentsArea.prepend(line);
+        helpAnimation.style.height = commentsBlock.offsetHeight + 'px';
+        
     }
 }
 //getComment
@@ -127,36 +172,54 @@ async function viewComments(){
         commentsArea.id = "comments";
         for(i = 0; i < comments.length; i++){
             let comment = document.createElement('div');
-            let userName = document.createElement('a');
+            let avatarBlock = document.createElement('div');
+            let avatar = document.createElement('img');
             let text = document.createElement('div');
             let line = document.createElement('hr');
-            text.className = "comment-text";
+            let nameAndText = document.createElement('div');
+            let nameAndDate = document.createElement('div');
+            let userName = document.createElement('a');
+            let date = document.createElement('div');
+
+            avatarBlock.className = 'avatar mr-3';
+            avatar.src = '';
+            avatar.className = 'img-avatar';
+
+            nameAndDate.className = 'row ml-1';
+            date.className = "text-secondary";
+            text.className = "comment-text ml-1";
             line.className = "mx-2";
             comment.id = "comment";
-            comment.className = "ml-4"
+            comment.className = "ml-4 row";
+
+            userName.href = "/User/Index/"+comments[i].id;
+            date.innerHTML = "&nbsp;&nbsp;" + comments[i].date;
             userName.innerHTML = comments[i].userName;
             text.innerHTML = comments[i].text;
-            comment.append(userName);
-            comment.append(text);
-            commentsArea.append(line);
-            commentsArea.append(comment);
+
+            nameAndDate.prepend(userName);
+            nameAndDate.append(date);
+            nameAndText.append(nameAndDate);
+            nameAndText.append(text);
+            avatarBlock.prepend(avatar);
+            comment.prepend(avatarBlock);
+            comment.append(nameAndText);
+            commentsArea.prepend(comment);
+            commentsArea.prepend(line);
         }
         commentsBlock.append(commentsArea);
-        animate({
-            duration: 700,
-            timing(timeFraction) {
-              return Math.pow(timeFraction, 2);
-            },
-            draw(progress) {
-                helpAnimation.style.height = progress * commentsBlock.offsetHeight + 'px';
-            }
-          });
-          //commentsBlock.style.height = 0;
-          console.log(commentsBlock.offsetHeight);
-    }else{
-        console.log("Нету");
     }
+    animate({
+        duration: 700,
+        timing(timeFraction) {
+            return Math.pow(timeFraction, 2);
+        },
+        draw(progress) {
+            helpAnimation.style.height = progress * commentsBlock.offsetHeight + 'px';
+        }
+    });
 }
+
 
 //animation
 function animate(options) {

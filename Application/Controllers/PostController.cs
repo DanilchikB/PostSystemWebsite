@@ -92,6 +92,7 @@ namespace MvcPost.Controllers
                 return NotFound();
             }
             var post = await _context.Post
+            .Include(p=>p.User)
             .FirstOrDefaultAsync(m => m.Id == id);
             if(post == null)
             {
