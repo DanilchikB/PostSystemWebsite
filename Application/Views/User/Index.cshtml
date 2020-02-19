@@ -7,7 +7,7 @@
     <div class="center-block container text-center">
         @if(@Model.Id == Int32.Parse(User.Identity.Name)){
             <div class = "avatar my-avatar center-block my-page" data-toggle="modal" data-target="#modalAddPhoto">
-                <img src="~/@Model.Avatar" class = "img-avatar" id = "imgAvatar">
+                <img src="~/@Model.Avatar" class = "img-avatar my-img-avatar" id = "imgAvatar">
             </div>
             <div>@Model.Username</div>
             <a asp-controller = "post" asp-action="mylist" class="btn btn-success text-white">My posts</a>

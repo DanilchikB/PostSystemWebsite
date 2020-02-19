@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using MvcComment.Models;
 using MvcPost.Models;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using Ajax.Models;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 
@@ -48,23 +48,30 @@ namespace Mvc.Error.Controllers{
         //post commenting
         [HttpPost]
         public async Task<JsonResult> AddComment([FromBody]JsonComment data){
-            User user = _context.User.FirstOrDefault(s => s.Id == Int32.Parse(User.Identity.Name));
-            Comment comment = new Comment{
-                Text=System.Web.HttpUtility.HtmlEncode(data.Text),
-                UserId=Int32.Parse(User.Identity.Name),
-                PostId=data.PostId,
-                Date = DateTime.Now
-            };
-            _context.Add(comment);
-            await _context.SaveChangesAsync();
-            ViewComments viewComment = new ViewComments{
-                Id = User.Identity.Name,
-                UserName = user.Username,
-                Avatar = user.Avatar,
-                Date = comment.Date.ToString("MM.dd.yyyy hh:mm tt"),
-                Text = comment.Text
-                
-            };
+            ViewComments viewComment;
+            if(data.Text.Trim() != ""){
+                User user = _context.User.FirstOrDefault(s => s.Id == Int32.Parse(User.Identity.Name));
+                Comment comment = new Comment{
+                    Text=System.Web.HttpUtility.HtmlEncode(data.Text),
+                    UserId=Int32.Parse(User.Identity.Name),
+                    PostId=data.PostId,
+                    Date = DateTime.Now
+                };
+                _context.Add(comment);
+                await _context.SaveChangesAsync();
+                viewComment = new ViewComments{
+                    Id = User.Identity.Name,
+                    UserName = user.Username,
+                    Avatar = user.Avatar,
+                    Date = comment.Date.ToString("dd.MM.yyyy hh:mm tt"),
+                    Text = comment.Text,
+                    Error = null
+                };
+            }else{
+                viewComment = new ViewComments{
+                    Error = "You did not enter a comment"
+                };
+            }
             return Json(viewComment);
         }
         //get comments for detail post
@@ -79,16 +86,15 @@ namespace Mvc.Error.Controllers{
                 .ToList();
             List<ViewComments> comments = new List<ViewComments>(post.Comments.Count());
             foreach(Comment item in sortingComments){
-                comments.Add(new ViewComments{
+                ViewComments view = new ViewComments{
                     Id = User.Identity.Name,
                     UserName = item.User.Username,
                     Avatar = item.User.Avatar,
                     Date = item.Date.ToString("MM.dd.yyyy hh:mm tt"),
                     Text = item.Text
-                });
-                Console.WriteLine(item.Text);
-                Console.WriteLine(item.User.Username);
-                 Console.WriteLine(post.Comments.Count());
+                };
+                comments.Add(view);
+                
             }
             //Console.WriteLine(PostId);
             return Json(comments);
@@ -111,23 +117,8 @@ namespace Mvc.Error.Controllers{
             }
             
         }
+
+        
     }
-    public class JsonLike{
-        public string PostId {get; set;}
-        public string Status {get; set; }
-    }
-    public class JsonComment{
-        public int PostId {get; set;}
-        public string Text {get; set;}
-    }
-    public class ViewComments{
-        public string Id {get; set;}
-        public string UserName {get; set;}
-        public string Avatar {get; set;}
-        public string Date {get; set;}
-        public string Text {get; set;}
-    }
-    public class getImage{
-        public IFormFile Image {get; set;}
-    }
+    
 }

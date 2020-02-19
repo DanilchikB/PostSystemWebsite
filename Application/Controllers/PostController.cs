@@ -10,6 +10,7 @@ using MvcUser.Models;
 using System.Linq;
 using paginationPage.Models;
 using Microsoft.AspNetCore.Authorization;
+using Helpers.Pagination;
 
 namespace MvcPost.Controllers
 {
@@ -32,26 +33,26 @@ namespace MvcPost.Controllers
         //GET: /Post/List/
         public async Task<IActionResult> List(int page=1)
         {
-            int itemsSize = 5;
-            int countButton;
+            Pagination pagination = new Pagination();
+            //int itemsSize = 5;
+            //int countButton;
             IQueryable<Post> posts = _context.Post
                 .Include(p=>p.User)
                 .Include(p=>p.Likes)
                     .ThenInclude(sc => sc.Post);
             posts = posts.OrderByDescending(x => x.Id);
-            int postCount = posts.Count();
-            float count = (float)postCount/itemsSize-postCount/itemsSize;
+            /*float count = (float)postCount/itemsSize-postCount/itemsSize;
             if(count>0){
                 countButton = postCount/itemsSize + 1;
             }else{
                 countButton = postCount/itemsSize;
-            }
+            }*/
 
-            var items = await posts.Skip((page - 1)*itemsSize).Take(itemsSize).ToListAsync();
+            var items = await posts.Skip((page - 1)*pagination.itemsSize).Take(pagination.itemsSize).ToListAsync();
 
             ListPages viewModel = new ListPages{
                 Posts = items,
-                PageCount = countButton,
+                PageCount = pagination.pageCalculation(posts.Count()),
                 ActualPage = page
             };
 
@@ -61,24 +62,17 @@ namespace MvcPost.Controllers
         //GET: /Post/MyList/
         public async Task<IActionResult> MyList(int page=1)
         {
-            int itemsSize = 5;
-            int countButton;
+            Pagination pagination = new Pagination(6);
 
             IQueryable<Post> posts = _context.Post.Include(p=>p.User);
             posts = posts.Where(p => p.UserId == Int32.Parse(User.Identity.Name));
             posts = posts.OrderByDescending(x => x.Id);
             int postCount = posts.Count();
 
-            float count = (float)postCount/itemsSize - postCount/itemsSize;
-            if(count>0){
-                countButton = postCount/itemsSize + 1;
-            }else{
-                countButton = postCount/itemsSize;
-            }
 
             ListPages viewModel = new ListPages{
-                Posts = await posts.Skip((page - 1)*itemsSize).Take(itemsSize).ToListAsync(),
-                PageCount = countButton,
+                Posts = await posts.Skip((page - 1)*pagination.itemsSize).Take(pagination.itemsSize).ToListAsync(),
+                PageCount = pagination.pageCalculation(posts.Count()),
                 ActualPage = page
             };
             return View(viewModel);

@@ -80,6 +80,7 @@ async function addComment(){
     let helpAnimation = document.getElementById('help-animation');
     let commentsBlock = document.getElementById('comment-block');
     let input = document.getElementById("input-comment");
+    let error = document.getElementById('error-add-comment');
     const url = '/Ajax/AddComment';
     const data = { PostId: parseInt(input.dataset.postId), Text: input.value};
     const response = await fetch(url, {
@@ -90,7 +91,12 @@ async function addComment(){
         }
     });
     let commentMessage = await response.json();
-    if (response.ok) {
+    if (response.ok && commentMessage.error == null) {
+        if(error!=null){
+            error.classList.remove('invalid-feedback'); 
+            error.classList.add('valid-feedback');
+            error.innerHTML = 'Success';
+        }
         let commentsArea = document.getElementById('comments');
         if(commentsArea == null){
             commentsArea = document.createElement('div');
@@ -133,7 +139,12 @@ async function addComment(){
         commentsArea.prepend(comment);
         commentsArea.prepend(line);
         helpAnimation.style.height = commentsBlock.offsetHeight + 'px';
-        
+    }else if(commentMessage.error != null){
+        if(error != null){
+            error.classList.remove('valid-feedback');
+            error.classList.add('invalid-feedback'); 
+            error.innerHTML = commentMessage.error;
+        }
     }
 }
 //getComment
@@ -163,7 +174,7 @@ async function viewComments(){
     helpAnimation.style.height = 0;
     //comments.insertAdjacentElement('afterbegin', buttonView);
     commentsBlock.insertAdjacentHTML('afterbegin','<h5 class = "ml-1">Comments</h5>');
-    commentsBlock.insertAdjacentHTML('beforeend','<div class="input-group"><input type="text" id="input-comment" class="form-control" placeholder="Your comment" data-post-id="'+commentsBlock.dataset.postId+'"> <div class="input-group-append"><button class="btn btn-success" type="button" id="add-comment" onclick="addComment()"> Add </button> </div> </div>');
+    commentsBlock.insertAdjacentHTML('beforeend','<div class="input-group add-comment-area"><input type="text" id="input-comment" class="form-control" placeholder="Your comment" data-post-id="'+commentsBlock.dataset.postId+'"> <div class="input-group-append"><button class="btn btn-success" type="button" id="add-comment" onclick="addComment()"> Add </button> </div><div id="error-add-comment" class = "d-block ml-1"><span asp-validation-for="Description"></span></div> </div>');
     let comments = await getComments();
     if(comments.length > 0){
         console.log(comments);

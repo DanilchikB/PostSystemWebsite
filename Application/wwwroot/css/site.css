@@ -128,7 +128,7 @@ input[type="file"] {
   height: 50px;
   z-index: 1;
 }
-.avatar:hover img.img-avatar{
+.avatar:hover img.my-img-avatar{
   opacity:0;
 }
 .img-avatar{
@@ -154,5 +154,12 @@ input[type="file"] {
   background: rgb(60, 168, 45);
   max-width: 250px;
   font-size: 18px;
+}
+
+.main-page{
+  margin: 0 auto;
+  width: 80%;
+  margin-top: 20px;
+  margin-bottom: 40px;
 }
 

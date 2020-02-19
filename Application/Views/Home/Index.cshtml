@@ -2,4 +2,22 @@
     ViewData["Title"] = "Hello, world!";
 }
 
-<div>Hello, world!</div>
+<div class="main-page card">
+    <h4 class = "text-center mt-2 mb-3">Об сайте</h4>
+
+    <p class = "mx-4">
+        &nbsp;&nbsp;&nbsp;Этот сайт создавался мною для обучения, поэтому тут могут быть косяки из-за моего непрофессионализма, но я стараюсь развиваться, чтобы свести их к минимальному количеству.
+    </p>
+    <p class="mx-4">
+        &nbsp;&nbsp;&nbsp;На этом сайте реализована <a asp-controller="User" asp-action="Registration">регистрация</a>, <a asp-controller="User" asp-action="Login">авторизация</a>, <a asp-controller="Post" asp-action="Index">пользовательские посты,</a> форма обретной связи(всплывашка). К постам есть возможность ставить лайки на странице <a asp-controller="Post" asp-action="List">всех новостей</a> и оставлять комментарии на <a asp-controller="Post" asp-action="Details" asp-route-id="1">странице детальной новости.</a>
+    </p>
+    <p class="mx-4">
+        &nbsp;&nbsp;&nbsp;У пользователей есть возможность менять фото на их <a asp-controller="User" asp-action="Index">Главной странице</a>
+    </p>
+    <p class="mx-4">
+        &nbsp;&nbsp;&nbsp;Для использования сайта нужно <a asp-controller="User" asp-action="Registraton">зарагистрироваться</a> и <a asp-controller="User" asp-action="Login">войти.</a>
+    </p>
+    <p class="mx-4">
+        &nbsp;&nbsp;&nbsp;Также вы можете менять тут все что захотите:)
+    </p>
+</div>
