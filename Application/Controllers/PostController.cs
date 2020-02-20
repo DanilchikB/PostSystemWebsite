@@ -29,7 +29,7 @@ namespace MvcPost.Controllers
         {
             return View();
         }
-
+        [Authorize]
         //GET: /Post/List/
         public async Task<IActionResult> List(int page=1)
         {
@@ -77,7 +77,7 @@ namespace MvcPost.Controllers
             };
             return View(viewModel);
         }
-
+        [Authorize]
         //GET: /Post/Details/1
         public async Task<IActionResult> Details(int? id)
         {
