@@ -31,7 +31,7 @@ namespace MvcUser.Controllers
                 User user;
                 if(id == null || id == Int32.Parse(User.Identity.Name)){
                     user = await _context.User
-                    .Include(u=>u.Posts)
+                    //.Include(u=>u.Posts)
                     .FirstOrDefaultAsync(u => u.Id == Int32.Parse(User.Identity.Name));
                 }else{
                     user = await _context.User.FirstOrDefaultAsync(u => u.Id == id);   

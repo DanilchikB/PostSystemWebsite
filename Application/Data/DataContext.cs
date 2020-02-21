@@ -17,7 +17,7 @@ namespace MvcDataContext.Data
         public DbSet<Feedback> Feedback { get; set;}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
+        {
         modelBuilder.Entity<Like>()
             .HasKey(t => new { t.UserId, t.PostId });
  
@@ -30,6 +30,6 @@ namespace MvcDataContext.Data
             .HasOne(sc => sc.Post)
             .WithMany(c => c.Likes)
             .HasForeignKey(sc => sc.PostId);
-    }
+        }
     }
 }
