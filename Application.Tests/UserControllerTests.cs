@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using System.Collections.Generic;
+using Helpers.User.PasswordHasher;
 
 namespace Application.Tests
 {
@@ -132,14 +133,90 @@ namespace Application.Tests
             }
             
         }
+        [Fact]
+        public async Task PostRegistrationTest(){
+            var connection = new SqliteConnection("DataSource=:memory:");
+                connection.Open();
+            try
+            {
+                var options = new DbContextOptionsBuilder<DataContext>()
+                    .UseSqlite(connection)
+                    .Options;
+                using (var context = new DataContext(options))
+                {
+                    context.Database.EnsureCreated();
+                }
+
+                using (var context = new DataContext(options))
+                {
+                    GetTestUsers(context);
+                    context.SaveChanges();
+                }
+
+                //check if errors are present
+                using (var context = new DataContext(options))
+                {
+                    var controller = new UserController(context);
+                    controller.ModelState.AddModelError("Email", "Required");
+                    User newUser = new User();
+
+                    var result = await controller.Registration(newUser);
+
+
+                    var viewResult = Assert.IsType<ViewResult>(result);
+                    Assert.Equal(newUser, viewResult?.Model);
+                }
+                //check if errors are not present
+                using(var context = new DataContext(options)){
+                    
+                    var controller = new UserController(context);
+                    User newUser = new User(){
+                        Username = "Misha",
+                        Password = "123456", 
+                        Email = "bob@bob.bo"
+                    };
+
+                    var result = await controller.Registration(newUser);
+
+
+                    var viewResult = Assert.IsType<ViewResult>(result);
+                    Assert.Equal("A user with this username exists", viewResult.ViewData.ModelState["Username"].Errors[0].ErrorMessage);
+                }
+                //check right registration
+                using(var context = new DataContext(options)){
+
+                    var controller = new UserController(context);
+                    User newUser = new User(){
+                        Username = "David",
+                        Email = "david@david.david",
+                        Password = "123123"
+                    };
+                    PasswordHasher ph = new PasswordHasher();
+                    
+                    var result = await controller.Registration(newUser);
+                    User resultUser = await context.User.FirstOrDefaultAsync(u=>u.Email=="david@david.david");
+
+                    var viewResult = Assert.IsType<RedirectToActionResult>(result);
+                    Assert.Equal("Login", viewResult.ActionName);
+                    Assert.Equal("User", viewResult.ControllerName);
+                    Assert.Equal("david@david.david", resultUser.Email);
+                    Assert.True(ph.Check(resultUser.Password, "123123"));
+                }
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        //help data
         private void GetTestUsers(DataContext context)
         {
             context.User.Add(new User { Id = 1, Username = "Bob", Password = "123456", Email = "bob@bob.bob"});
             context.User.Add(new User{ Id = 2, Username = "Alice", Password = "123456", Email = "alice@alice.alice"});
             context.User.Add(new User { Id = 3, Username = "Misha", Password = "123456", Email = "misha@misha.misha"});
-            context.User.Add(new User { Id = 4, Username = "Mark", Password = "123456", Email = "mark@mark.mark"});
-                
-                
+            context.User.Add(new User { Id = 4, Username = "Mark", Password = "123456", Email = "mark@mark.mark"}); 
         }
     }
 }
