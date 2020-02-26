@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using System.Collections.Generic;
 using Helpers.User.PasswordHasher;
+using HelpTests;
 
 namespace Application.Tests
 {
@@ -37,7 +38,7 @@ namespace Application.Tests
                 // Run the test against one instance of the context
                 using (var context = new DataContext(options))
                 {
-                    GetTestUsers(context);
+                    HelpData.SetTestUsers(context);
                     context.SaveChanges();
                 }
 
@@ -89,7 +90,7 @@ namespace Application.Tests
 
                 using (var context = new DataContext(options))
                 {
-                    GetTestUsers(context);
+                    HelpData.SetTestUsers(context);
                     context.SaveChanges();
                 }
 
@@ -149,7 +150,7 @@ namespace Application.Tests
 
                 using (var context = new DataContext(options))
                 {
-                    GetTestUsers(context);
+                    HelpData.SetTestUsers(context);
                     context.SaveChanges();
                 }
 
@@ -211,12 +212,6 @@ namespace Application.Tests
         }
 
         //help data
-        private void GetTestUsers(DataContext context)
-        {
-            context.User.Add(new User { Id = 1, Username = "Bob", Password = "123456", Email = "bob@bob.bob"});
-            context.User.Add(new User{ Id = 2, Username = "Alice", Password = "123456", Email = "alice@alice.alice"});
-            context.User.Add(new User { Id = 3, Username = "Misha", Password = "123456", Email = "misha@misha.misha"});
-            context.User.Add(new User { Id = 4, Username = "Mark", Password = "123456", Email = "mark@mark.mark"}); 
-        }
+        
     }
 }
