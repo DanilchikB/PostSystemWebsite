@@ -1,0 +1,6 @@
+Application/test.db
+Application/wwwroot/lib/node_modules
+Application/wwwroot/lib/package-lock.json
+Application/bin
+Application/obj
+Application/Migrations
