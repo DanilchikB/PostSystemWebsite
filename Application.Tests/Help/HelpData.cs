@@ -63,5 +63,15 @@ namespace HelpTests{
                 UserId = 1
             });
         }
+        public static Post GetEditTestPost(){
+            Post post = new Post(){
+                        Id = 6,
+                        Title = "EditSixthTitle",
+                        Description = "EditSixthDescription",
+                        Text = "EditSixthText",
+                        UserId = 2
+            };
+            return post;
+        }
     }
 }
