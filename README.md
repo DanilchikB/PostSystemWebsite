@@ -58,15 +58,15 @@ PseudoSocialNetwork
 
 Для просмотра проекта перейдите по адресу
 
-    ```
-    http://localhost:5000
-    ```
+```
+http://localhost:5000
+```
     
-    либо
+либо
     
-    ```
-    https://localhost:5001
-    ```
+```
+https://localhost:5001
+```
 
 Просмотр проекта с помощью Docker
 ---------------------------------
@@ -75,17 +75,16 @@ PseudoSocialNetwork
 
 Если вам лень выполнять все действия, представленные выше запустите командную строку в корне проекта, где лежит Dockerfile и выролните: 
 
-    ```
-    docker build -t aspnetproject . 
-    ```
-    
-    ```
-    docker run --rm -p 8000:5000 --name project_aspnet aspnetproject
-    ```
+```
+docker build -t aspnetproject . 
+``` 
+```
+docker run --rm -p 8000:5000 --name project_aspnet aspnetproject
+```
 Перейдите по по адресу ```http://localhost:8000```
 
 Если вы хотите остановить контейнер выолните в другой командной строке:
 
-    ```
-    docker stop project_aspnet
-    ```
+```
+docker stop project_aspnet
+```
