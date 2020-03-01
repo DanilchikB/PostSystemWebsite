@@ -41,6 +41,7 @@ PseudoSocialNetwork
     ```
     dotnet ef migrations add Initial
     ```
+    
     ```
     dotnet ef database update
     ```
@@ -60,7 +61,9 @@ PseudoSocialNetwork
     ```
     http://localhost:5000
     ```
+    
     либо
+    
     ```
     https://localhost:5001
     ```
@@ -75,6 +78,7 @@ PseudoSocialNetwork
     ```
     docker build -t aspnetproject . 
     ```
+    
     ```
     docker run --rm -p 8000:5000 --name project_aspnet aspnetproject
     ```
