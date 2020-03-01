@@ -11,8 +11,9 @@ COPY ./Application/wwwroot/lib ./
 RUN npm install
 
 #starting project
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1-alpine3.10 AS dotnet
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-alpine AS dotnet
 
+ENV PATH /root/.dotnet/tools:$PATH
 #work in the app directory
 WORKDIR /app
 #copy project in docker
@@ -24,14 +25,11 @@ COPY --from=jslib /lib/node_modules ./wwwroot/lib/node_modules
 #restore dependencies
 RUN dotnet restore
 
-#install dotnet-ef for work with base
-RUN dotnet tool install --global dotnet-ef
-ENV PATH /root/.dotnet/tools:$PATH
-#add migrations for work with database
-RUN dotnet ef migrations add Initial
+#install dotnet-ef for work with base and database setup
+RUN dotnet tool install --global dotnet-ef &&\
+    dotnet ef migrations add Initial &&\
+    dotnet ef database update
 
-#add sqlite database
-RUN dotnet ef database update
 
 #project run
 CMD dotnet run --urls http://0.0.0.0:5000
